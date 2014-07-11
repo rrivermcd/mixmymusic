@@ -2,6 +2,7 @@ Rails.application.routes.draw do
  
  get "mix_my_music/home"
  get "mix_my_music/help"
+ get "mix_my_music/about"
  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

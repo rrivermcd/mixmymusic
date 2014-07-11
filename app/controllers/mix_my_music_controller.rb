@@ -4,4 +4,7 @@ class MixMyMusicController < ApplicationController
 
   def help
   end
+  
+  def about
+  end
 end
