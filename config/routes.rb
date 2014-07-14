@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
  
 	resources :users
-	root 'mix_my_music#home'
+	resources :sessions, only: [:new, :create, :destroy]
+	root 'mix_my_music#home'	
 	match '/signup',  to: 'users#new',            via: 'get'
-	match '/help', to: 'mix_my_music#help', via: 'get'
-	match '/about', to: 'mix_my_music#about', via: 'get'
+	match '/signin', to: 'sessions#new',          via: 'get'
+	match '/signout', to: 'sessions#destroy',     via: 'delete'      
+	match '/help', to: 'mix_my_music#help',       via: 'get'
+	match '/about', to: 'mix_my_music#about',     via: 'get'
 	match '/contact', to: 'mix_my_music#contact', via: 'get'
 
  
