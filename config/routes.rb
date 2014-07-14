@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
  
- get "mix_my_music/home"
- get "mix_my_music/help"
- get "mix_my_music/about"
+  get 'users/new'
+
+	root 'mix_my_music#home'
+	match '/signup',  to: 'users#new',            via: 'get'
+	match '/help', to: 'mix_my_music#help', via: 'get'
+	match '/about', to: 'mix_my_music#about', via: 'get'
+	match '/contact', to: 'mix_my_music#contact', via: 'get'
+
  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
