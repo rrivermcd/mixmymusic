@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
  
-  get 'users/new'
-
+	resources :users
 	root 'mix_my_music#home'
 	match '/signup',  to: 'users#new',            via: 'get'
 	match '/help', to: 'mix_my_music#help', via: 'get'
