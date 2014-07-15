@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'bootstrap-sass', '2.3.2.0'
 gem 'sprockets', '2.11.0'
 # gem 'bcrypt-ruby', '3.1.1.rc1', :require => 'bcrypt'
+gem 'will_paginate', '3.0.4'
+gem 'bootstrap-will_paginate', '0.0.9'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
