@@ -5,19 +5,23 @@
         <%= render 'shared/user_info' %>
       </section>
       <section>
+        <%= render 'shared/stats' %>
+      </section>
+      <section>
         <%= render 'shared/micropost_form' %>
       </section>
     </aside>
     <div class="span8">
-    	<h3>Micropost Feed</h3>
-    	<%= render 'shared/feed' %>
+      <h3>Micropost Feed</h3>
+      <%= render 'shared/feed' %>
     </div>
   </div>
 <% else %>
-	<div class="center hero-unit">
-		<% provide(:title, 'Home') %>
-		<h1>Mix My Music</h1>
-		<h2>Home of Mix My Music.</h2>
-		<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
-	</div>
+  <div class="center hero-unit">
+    <h1>Welcome to Mix My Music</h1>
+
+     <%= link_to "Sign up now!", signup_path,
+                                class: "btn btn-large btn-primary" %>
+  </div>
+
 <% end %>
