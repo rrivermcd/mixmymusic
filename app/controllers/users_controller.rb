@@ -14,7 +14,9 @@ class UsersController < ApplicationController
   end
 
   def new
+      @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
     @user = User.new
+
   end
 
   def create
@@ -59,7 +61,7 @@ class UsersController < ApplicationController
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
   end
-
+   
   private
 
     def user_params
