@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'tracks/index'
+
+  get 'tracks/upload'
+
+  get 'tracks/delete'
+
   resources :users do
     member do
       get :following, :followers

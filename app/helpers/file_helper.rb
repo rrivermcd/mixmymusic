@@ -33,4 +33,12 @@ module FileHelper
 
   end
 
-end
+  def sanitize_filename(file_name)
+    just_filename = File.basename(file_name)
+    just_filename.sub(/[^\w\.\-]/,'_')
+  end
+
+  def download_url_for(song_key)
+    AWS::S3::S3Object.url_for(song_key, ENV["S3_BUCKET"], :authenticated => false)
+  end
+ end

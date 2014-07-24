@@ -17,6 +17,7 @@ end
 
 #Amazon S3 sdk
 gem 'aws-sdk'
+#gem 'aws-s3'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
