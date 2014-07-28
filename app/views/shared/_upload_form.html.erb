@@ -1,7 +1,7 @@
  <div>
  <p>Got a new track?</p>
  <form role="form" action="https://mixmymusic.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
-      <input type="hidden" name="key" value="uploads/${filename}">
+      <input type="hidden" name="key" value=<%= whitespace_to_underscore(current_user.name) + '/${filename}'%> >
       <input type="hidden" name="AWSAccessKeyId" value=<%= ENV["AWS_ACCESS_KEY_ID"] %>> 
       <input type="hidden" name="acl" value="private"> 
       <input type="hidden" name="success_action_redirect" value="http://localhost:3000">
@@ -14,46 +14,3 @@
             <input id="upload" class = "btn btn-large btn-primary" type = "submit" disabled value = "Upload"> 
     </form> 
 </div>
-
-<!-- TEST CODE: RETURN FILE AND PLAY IT!! -->
-
-<h2>Listen to a MP3 with HTML5 Audio</h2>
-<% s3 = AWS::S3.new %> 
-<% bucket = s3.buckets[ENV['S3_BUCKET']]  %> 
-<% bucket.objects.each do |track| %> 
-<% url = track.url_for(:read) %>
-<% if track.key[-1,1] != "/" %>
-<%= sanitize_filename(track.key) %> 
-<audio controls>
-  <source src=<%= url %> type="audio/mpeg">
-Your browser does not support the audio element.
-</audio> 
-<%end%>
-<%end%>
-
-
-
-<!-- END TEST CODE -->
-<script>
-  function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
-
-    // Loop through the FileList and render image files as thumbnails.
-    for (var i = 0, f; f = files[i]; i++) {
-
-      // Only process audio files.
-      if (!f.type.match('audio.*')) {
-        document.getElementById('upload').disabled = true;
-        continue;
-      }
-      else {
-
-          document.getElementById('upload').disabled = false;
-          document.forms[0].elements["ct"].value = f.type;
-      }
-
-
-    }
-  }
-
-</script>

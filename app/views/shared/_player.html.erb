@@ -1,0 +1,14 @@
+<h2>Listen to tracks by <%= current_user.name %></h2>
+
+<ul class='playlist js-interactive-list'>
+  <% @bucket.objects.each do |track| %> 
+    <% if track.key[-1,1] != "/" %>
+    <% track_url = track.url_for(:read) %>
+   <li data-additional-info= <%=track_url%>><%= sanitize_filename(track.key) %></li>
+  <%end%>
+  <%end%>
+</ul>
+<audio id='audio' controls = 'controls' preload = "none">
+  <source id = 'source' src = '' type = "audio/mpeg">
+</audio> 
+

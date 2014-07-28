@@ -6,7 +6,7 @@ module FileHelper
       "{'expiration': '#{10.hours.from_now.utc.strftime('%Y-%m-%dT%H:%M:%S.000Z')}',
         'conditions': [
           {'bucket': '#{ENV['S3_BUCKET']}'},
-          ['starts-with', '$key', 'uploads/'],
+          ['starts-with', '$key', ''],
           {'acl': 'private'},
           {'success_action_redirect': 'http://localhost:3000'},
         ['starts-with','$Content-Type','audio/mp3'],
@@ -38,7 +38,7 @@ module FileHelper
     just_filename.sub(/[^\w\.\-]/,'_')
   end
 
-  def download_url_for(song_key)
-    AWS::S3::S3Object.url_for(song_key, ENV["S3_BUCKET"], :authenticated => false)
+  def whitespace_to_underscore(user_name)
+    name = user_name.gsub(' ', '_') 
   end
  end

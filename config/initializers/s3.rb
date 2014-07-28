@@ -9,7 +9,7 @@
 
 #END TEST
 
-#GO CODE
+#GO CODE ---NEED TO REFACTOR VARIABLES TO LIVE IN YAML FILE
   module S3
     class Application < Rails::Application
       config.before_configuration do
