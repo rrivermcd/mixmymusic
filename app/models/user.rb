@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :tracks, dependent: :destroy
   has_many :instruments, dependent: :destroy 
 
-  has_many :sets, through :tracks
+  has_many :sets, :through => :tracks
 
   has_many :microposts, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
