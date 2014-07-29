@@ -1,0 +1,2 @@
+class SetsController < ApplicationController
+end
