@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  get 'tracks/index'
-
-  get 'tracks/upload'
-
-  get 'tracks/delete'
 
   resources :users do
     member do
@@ -15,8 +10,10 @@ Rails.application.routes.draw do
   resources :microposts,    only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
   
+  resources :tracks
 
   root to: 'mix_my_music#home'
+  
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
