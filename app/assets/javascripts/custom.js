@@ -11,7 +11,7 @@
   function handleFileSelect(evt) {
       var files = evt.target.files; // FileList object
 
-      // Loop through the FileList and render image files as thumbnails.
+      // Loop through the FileList.
       for (var i = 0, f; f = files[i]; i++) {
 
         // Only process audio files.
@@ -28,7 +28,9 @@
     }
 
    // Add Listeners 
-  document.getElementById('file').addEventListener('change', handleFileSelect, false);
+  
+  var list = document.querySelector('.js-interactive-list');
+
   list.addEventListener("click", function(e)
     {
       audio.src = e.target.dataset.additionalInfo;

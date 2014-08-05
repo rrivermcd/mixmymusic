@@ -11,6 +11,8 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
+    s3 = AWS::S3.new
+    @bucket = s3.buckets[ENV['S3_BUCKET']] 
   end
 
   def new
@@ -65,7 +67,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password,
+      params.require(:user).permit(:name, :email, :username, :password,
                                    :password_confirmation)
     end
 

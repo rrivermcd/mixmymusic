@@ -1,11 +1,15 @@
+
 <% provide(:title, @user.name) %>
 <div class="row">
   <aside class="span4">
     <section>
       <h1>
         <%= gravatar_for @user %>
-        <%= @user.name %>
+        <%= @user.username %>
       </h1>
+      <h5>
+        AKA: <%= @user.name %>
+      </H5>
     </section>
     <section>
       <%= render 'shared/stats' %>
@@ -16,8 +20,17 @@
   </aside>
   <div class="span8">
     <%= render 'follow_form' if signed_in? %>
+      <% if current_user == @user %>    
+        <section>
+          <%= render 'shared/upload_form' %>
+        </section>  
+      <% end %>
+    <section>
+      <%= render 'shared/player' %>
+    </section>
+    
     <% if @user.microposts.any? %>
-      <h3>My shout outs (<%= @user.microposts.count %>)</h3>
+      <h3><%=@user.username%>'s shouts (<%= @user.microposts.count %>)</h3>
       <ol class="microposts">
         <%= render @microposts %>
       </ol>
