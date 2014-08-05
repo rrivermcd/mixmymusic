@@ -1,4 +1,3 @@
-<h2>Listen to tracks by <%= @user.username %></h2>
 
 <ul class='playlist js-interactive-list'>
   <% @bucket.objects.with_prefix(@user.username).each do |track| %> 

@@ -1,5 +1,5 @@
  <div>
- <p>Got a new track?</p>
+
  <form role="form" action="https://mixmymusic.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
       <input type="hidden" name="key" value=<%= whitespace_to_underscore(current_user.username) + '/${filename}'%> >
       <input type="hidden" name="AWSAccessKeyId" value=<%= ENV["AWS_ACCESS_KEY_ID"] %>> 

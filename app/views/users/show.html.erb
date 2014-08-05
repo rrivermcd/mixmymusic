@@ -16,25 +16,32 @@
     </section>
     <section>
       <h4>About Me</h4>
+      <p>I'm a guitar player</p>
     </section>
   </aside>
   <div class="span8">
     <%= render 'follow_form' if signed_in? %>
-      <% if current_user == @user %>    
-        <section>
+      <% if current_user.username == @user.username %>
+        <h3>Your Stuff</h3>
+        <h4>Put up a track</h4>
           <%= render 'shared/upload_form' %>
         </section>  
+      <%else%>
+       <h3><%=@user.username %>'s Stuff</h3> 
       <% end %>
-    <section>
+      <section id= 'tracks'>
+     <h4>Tracks</h4>
       <%= render 'shared/player' %>
     </section>
-    
     <% if @user.microposts.any? %>
-      <h3><%=@user.username%>'s shouts (<%= @user.microposts.count %>)</h3>
-      <ol class="microposts">
-        <%= render @microposts %>
-      </ol>
-      <%= will_paginate @microposts %>
+      <section id = 'user_shouts'>  
+        <h4>Shouts (<%= @user.microposts.count %>)</h4>
+        <ol class="microposts">
+          <%= render @microposts %>
+        </ol>
+        <%= will_paginate @microposts %>
+      </section>
     <% end %>
+
   </div>
 </div>
