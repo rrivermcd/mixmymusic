@@ -1,16 +1,26 @@
  <div>
-
- <form role="form" action="https://mixmymusic.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
-      <input type="hidden" name="key" value=<%= whitespace_to_underscore(current_user.username) + '/${filename}'%> >
+   <form>
+      <input type="hidden" name="key" value=<%= "tracks/#{SecureRandom.uuid}/${filename}" %> >
       <input type="hidden" name="AWSAccessKeyId" value=<%= ENV["AWS_ACCESS_KEY_ID"] %>> 
-      <input type="hidden" name="acl" value="private"> 
-      <input type="hidden" name="success_action_redirect" value="http://localhost:3000">
+      <input type="hidden" name="acl" value="private">
+      <!-- <input type="hidden" name="success_action_redirect" value="http://localhost:3000">  -->
       <input type="hidden" name="policy" value=<%= policy %>>
       <input type="hidden" name="signature" value=<%= signature %>>
-      <input id="ct" type="hidden" name="Content-Type" value= ''>
-      <!-- Include any additional input fields here -->   
-       <input type="file" id="file" name = "file" accept = "audio/*" > 
-            <br> 
-            <input id="upload" class = "btn btn-large btn-primary" type = "submit" disabled value = "Upload"> 
-    </form> 
+      <input id="ct" type="hidden" name="Content-Type" value= 'audio/mp3'>
+      <!-- Include any additional input fields here -->
+      <input type="hidden" name="success_action_status" value = '201'>
+      <!-- end of my includes -->   
+      <input type="file" id="file" name = "file" accept = "audio/*" > </br> 
+        <input id="upload" class = "btn btn-large btn-primary" type = "submit"  value = "Upload">   
+  </form> 
 </div>
+<script>
+$('form').on('submit', function(event){
+  var data = new FormData(this);
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST','https://mixmymusic.s3.amazonaws.com/', true);
+  xhr.send(data);
+  return false;
+})
+
+</script>

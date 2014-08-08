@@ -12,11 +12,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
     s3 = AWS::S3.new
-    @bucket = s3.buckets[ENV['S3_BUCKET']] 
+    @bucket = s3.buckets['mixmymusic']
+    @s3_direct_post = @bucket.presigned_post(key: "tracks/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :private, content_type: 'audio/mp3')
+    @track = Track.new
   end
 
   def new
-      @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
     @user = User.new
 
   end

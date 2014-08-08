@@ -23,14 +23,23 @@
     <%= render 'follow_form' if signed_in? %>
       <% if current_user.username == @user.username %>
         <h3>Your Stuff</h3>
-        <h4>Put up a track</h4>
-          <%= render 'shared/upload_form' %>
-        </section>  
       <%else%>
        <h3><%=@user.username %>'s Stuff</h3> 
       <% end %>
+      <section>
+        <%= render 'shared/track_upload_form' %>
+      </section>
       <section id= 'tracks'>
      <h4>Tracks</h4>
+     <ul class='playlist js-interactive-list'>
+    <% Track.find_each do |item| %>
+      <% if item.user_id == current_user.id %>
+        <% track_list = item.track_url %>
+        <% track_url = @bucket.objects[track_list].url_for(:read) %>
+        <li data-additional-info= <%=track_url%>><%= sanitize_filename(track_list) %></li>
+      <% end %>
+    <% end %>
+</ul>
       <%= render 'shared/player' %>
     </section>
     <% if @user.microposts.any? %>
