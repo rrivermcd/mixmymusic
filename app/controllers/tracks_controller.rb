@@ -1,4 +1,6 @@
 class TracksController < ApplicationController
+	def index
+	end
 	def new
 		s3 = AWS::S3.new
     	@bucket = s3.buckets['mixmymusic']
@@ -7,12 +9,18 @@ class TracksController < ApplicationController
 	end
 
 	def create
-		@track = Track.new(params[:track].permit(:track_url, :user_id))
+		@track = current_user.tracks.build(track_params)
 		@track.save
 		if @track.save
 			flash[:success] = "Saved"
 			# render 'shared/track_upload_form'
       		redirect_to(root_url)
       	end
+	end
+	
+	private
+
+	def track_params
+		params.require(:track).permit(:track_url, :name)
 	end
 end

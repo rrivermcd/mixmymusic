@@ -5,10 +5,10 @@
 <script>
     // Add Listeners  
 
-    var list = document.querySelector(".js-interactive-list");
+    var track_list = document.querySelector(".js-track-list");
     var audio = document.getElementById('audio');   
        
-    list.addEventListener("click", function(e)
+    track_list.addEventListener("click", function(e)
       { 
         audio.src = e.target.dataset.additionalInfo;
       });

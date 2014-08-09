@@ -10,11 +10,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @track = Track.new
     @microposts = @user.microposts.paginate(page: params[:page])
     s3 = AWS::S3.new
     @bucket = s3.buckets['mixmymusic']
     @s3_direct_post = @bucket.presigned_post(key: "tracks/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :private, content_type: 'audio/mp3')
-    @track = Track.new
   end
 
   def new
@@ -69,7 +69,7 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :username, :password,
-                                   :password_confirmation)
+                                   :password_confirmation, track_attributes: [:track])
     end
 
     # Before filters

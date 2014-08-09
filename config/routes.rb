@@ -9,9 +9,10 @@ Rails.application.routes.draw do
   resources :sessions,      only: [:new, :create, :destroy]
   resources :microposts,    only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
-  
   resources :tracks
 
+  resources :songs
+ 
   root to: 'mix_my_music#home'
   
   match '/signup',  to: 'users#new',            via: 'get'
