@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
 
   has_many :tracks, dependent: :destroy
   accepts_nested_attributes_for :tracks
+  has_many :songs, through: :parts
+  has_many :parts
   
   has_many :microposts, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy

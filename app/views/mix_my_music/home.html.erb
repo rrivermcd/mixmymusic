@@ -17,6 +17,12 @@
      </section>
     </aside>
     <div class="span8">
+      <h3>Newly added songs</h3>
+      <ul class='playlist js-track-list'>
+      <%= render @songs%>
+      </ul>
+    <%= render 'shared/player' %>
+    </section>
       <h3>Who's shouting about what?</h3>
       <%= render 'shared/feed' %>
     </div>

@@ -1,0 +1,10 @@
+<h5>Tracks:</h5>
+<% parts = Part.where('song_id = ?', song.id) %>
+<% parts.each do |part| %>
+	<% tracks = Track.where('id = ?', part.track_id) %>
+	<% tracks.each do |track| %>
+		<li data-additional-info = <%= @bucket.objects[track.track_url].url_for(:read)%>>
+			<%= track.name %>
+		</li>
+	<% end %>
+<% end %>

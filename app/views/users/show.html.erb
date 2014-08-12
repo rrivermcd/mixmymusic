@@ -1,6 +1,5 @@
 
 <% provide(:title, @user.name) %>
-
 <div class="row">
  <aside class="span4">
     <section>
@@ -31,16 +30,11 @@
         <h4>Start a new song</h4>
         <%= render 'shared/track_upload_form' %>
       </section>
-      <section id= 'tracks'>
-     <h4>Listen to one of your tracks</h4>
-     <ul class='playlist js-track-list'>
-    <% tracks = Track.where(user_id: current_user.id) %>
-      <% tracks.each do |track|%>
-        <% key = track.track_url %>
-        <% track_url = @bucket.objects[key].url_for(:read) %>
-        <li data-additional-info= <%=track_url%>><%= sanitize_filename(key) %></li>
-      <% end %>
-</ul>
+      <section>
+        <h4>Listen to one of your tracks</h4>
+        <ul class='playlist js-track-list'>
+          <%= render @tracks%>
+        </ul>
       <%= render 'shared/player' %>
     </section>
     <% if @user.microposts.any? %>

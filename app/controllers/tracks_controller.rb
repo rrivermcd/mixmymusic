@@ -1,26 +1,37 @@
 class TracksController < ApplicationController
+	
 	def index
 	end
+	
 	def new
-		s3 = AWS::S3.new
-    	@bucket = s3.buckets['mixmymusic']
-  		@s3_direct_post = @bucket.presigned_post(key: "tracks/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :private, content_type: 'audio/mp3')
-		@track = Track.new
 	end
-
+		
 	def create
 		@track = current_user.tracks.build(track_params)
-		@track.save
-		if @track.save
-			flash[:success] = "Saved"
-			# render 'shared/track_upload_form'
-      		redirect_to(root_url)
-      	end
-	end
-	
+		@track.name = sanitize_filename(@track.track_url)
+		@song_id = params[:song_id]
+		Track.transaction do
+			@track.save
+	      	if @song_id.blank?
+				@song = Song.create(:name => @track.name)
+				@song_id = @song.id	      		
+  			end      		
+      			@track.parts.create(:song_id => @song_id, :user_id => current_user.id)
+		end
+      	flash[:success] = @song_id
+		# render 'shared/track_upload_form'
+      	redirect_to(root_url)	
+  	end
+
+
 	private
 
 	def track_params
-		params.require(:track).permit(:track_url, :name)
+		params.require(:track).permit(:track_url)
 	end
+
+	def sanitize_filename(file_name)
+      just_filename = File.basename(file_name, '.*')
+      # just_filename.sub(/[^\w\.\-]/,'_')
+    end
 end
