@@ -17,14 +17,15 @@
      </section>
     </aside>
     <div class="span8">
-      <h3>Newly added songs</h3>
-      <ul class='playlist js-track-list'>
-      <%= render @songs%>
-      </ul>
-    <%= render 'shared/player' %>
-    </section>
-      <h3>Who's shouting about what?</h3>
-      <%= render 'shared/feed' %>
+      <h4>New and Evolving Songs</h4>
+      <section class='songs'>
+        <%= render @songs%>
+      </section>
+      <section>
+        <hr>
+      <h4>Who's shouting about what?</h3>
+        <%= render 'shared/feed' %>
+      </section>
     </div>
   </div>
 <% else %>

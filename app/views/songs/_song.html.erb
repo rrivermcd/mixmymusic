@@ -1,9 +1,13 @@
-<h4><%= song.name %> </h4>
+<hr>
+<h5><%= song.name %> </h5>
 <span class = 'timestamp'>
-	Added <%= time_ago_in_words(song.created_at) %>  ago.
+	Last Updated: <%= time_ago_in_words(song.created_at) %>  ago.
 </span>
-<span class = 'content'>
+<span class = 'user_avatars'>
+<p>Contributors:</p>	
+<% song.users.each_with_index do |user| %>
+		<%= link_to gravatar_for(user), user%>
+	<%end%>
 <%= render :partial =>'songs/song_tracks', :locals =>{:song => song} if controller_name == "songs" %>
 </span>
 <%= will_paginate @songs %>
-<hr>
