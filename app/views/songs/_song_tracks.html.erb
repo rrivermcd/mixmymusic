@@ -2,7 +2,7 @@
 <% parts.each do |part| %>
 	<% tracks = Track.where('id = ?', part.track_id) %>
 	<% tracks.each do |track| %>
-		<li data-additional-info = <%= @bucket.objects[track.track_url].url_for(:read)%>>
+		<li class = 'url' data-url = <%= @bucket.objects[track.track_url].url_for(:read)%>>
 			Track: <%= track.name %>
 		</li>
 	<% end %>

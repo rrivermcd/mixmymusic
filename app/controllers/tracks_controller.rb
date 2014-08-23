@@ -9,7 +9,7 @@ class TracksController < ApplicationController
 	def create
 		@track = current_user.tracks.build(track_params)
 		@track.name = sanitize_filename(@track.track_url)
-		@song_id = params[:song_id]
+		@song_id = song_params
 		Track.transaction do
 			@track.save
 	      	if @song_id.blank?
@@ -18,7 +18,7 @@ class TracksController < ApplicationController
   			end      		
       			@track.parts.create(:song_id => @song_id, :user_id => current_user.id)
 		end
-      	flash[:success] = @song_id
+      	flash[:success] = "Saved"
 		# render 'shared/track_upload_form'
       	redirect_to(root_url)	
   	end
@@ -28,6 +28,11 @@ class TracksController < ApplicationController
 
 	def track_params
 		params.require(:track).permit(:track_url)
+
+	end
+
+	def song_params
+		params.permit(params[:song_id])
 	end
 
 	def sanitize_filename(file_name)

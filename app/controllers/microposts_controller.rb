@@ -21,7 +21,7 @@
   private
 
     def micropost_params
-      params.require(:micropost).permit(:content)
+      params.require(:micropost).permit(:content, :track_id, :song_id)
     end
 
     def correct_user

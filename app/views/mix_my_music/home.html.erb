@@ -7,25 +7,25 @@
       <section>
         <%= render 'shared/stats' %>
       </section>
-      <section>  
-        <h4>Start a new song</h4>
-        <%= render 'shared/track_upload_form' %>
-      </section>
+      <h4> Shout it out </h4>
       <section>
         <%= render 'shared/micropost_form' %>
       </section>
-     </section>
+       <div id='accordion'>
+        <h4>Who's shouting? <span class = 'caret'></span></h4>
+        <section>        
+          <%= render 'shared/feed' %>
+        </section>
+      </div>   
     </aside>
     <div class="span8">
-      <h4>New and Evolving Songs</h4>
-      <section class='songs'>
-        <%= render @songs%>
-      </section>
+      <%= render 'songs/song_list' %>
       <section>
-        <hr>
-      <h4>Who's shouting about what?</h3>
-        <%= render 'shared/feed' %>
-      </section>
+      <hr>         
+        <h4>Start a song of your own</h4>        
+        <%= render 'shared/track_upload_form' %>
+      </section>        
+      <hr>
     </div>
   </div>
 <% else %>
@@ -37,3 +37,8 @@
 
 <% end %>
 
+<script>
+$(function() {
+  $('#accordion').accordion({ header: "h4", collapsible: true });
+});
+</script>

@@ -1,17 +1,22 @@
 class User < ActiveRecord::Base
-
+# section setting up songs and tracks
   has_many :tracks, dependent: :destroy
   accepts_nested_attributes_for :tracks
   has_many :songs, through: :parts
   has_many :parts
-  
+
+# microposts
   has_many :microposts, dependent: :destroy
+
+# section setting up followers and following
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
   has_many :reverse_relationships, foreign_key: "followed_id",
                                    class_name:  "Relationship",
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
+
+# validators and such
   before_save { self.email = email.downcase }
   before_create :create_remember_token
   validates :name, presence: true, length: { maximum: 50 }
@@ -21,6 +26,7 @@ class User < ActiveRecord::Base
   validates :username, presence: true, uniqueness: {case_sensitive: true}
   has_secure_password
   validates :password, length: { minimum: 6 }
+
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64

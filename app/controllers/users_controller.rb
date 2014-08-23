@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
     @tracks = @user.tracks
-    @song_id = ''
+    # @song_id = ''
 end
 
   def new

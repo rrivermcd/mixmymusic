@@ -4,13 +4,12 @@
 
 <script>
     // Add Listeners  
-
     var track_list = document.querySelector(".js-track-list");
     var audio = document.getElementById('audio');   
        
     track_list.addEventListener("click", function(e)
       { 
-        audio.src = e.target.dataset.additionalInfo;
+        audio.src = e.target.dataset.url;
       });
 
 </script>

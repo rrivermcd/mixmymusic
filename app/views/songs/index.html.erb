@@ -1,16 +1,1 @@
-<%get_s3%>
-<h1>Song Browser</h1>
-
-<%= will_paginate %>
-<section>
-	<h4>Listen to Songs</h4>
-	<ul class='playlist js-track-list'>
-		<%= render @songs%>
-	</ul>
-	</section>
-<section>
-	<hr>
-	<%= render 'shared/player' %>
-</section>
-
-<%= will_paginate %>
+<%= render 'song_list' %>

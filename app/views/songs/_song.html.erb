@@ -1,13 +1,38 @@
-<hr>
-<h5><%= song.name %> </h5>
-<span class = 'timestamp'>
-	Last Updated: <%= time_ago_in_words(song.created_at) %>  ago.
-</span>
-<span class = 'user_avatars'>
-<p>Contributors:</p>	
-<% song.users.each_with_index do |user| %>
-		<%= link_to gravatar_for(user), user%>
-	<%end%>
-<%= render :partial =>'songs/song_tracks', :locals =>{:song => song} if controller_name == "songs" %>
-</span>
+<!-- <h5><span class='caret'> <%=song.name%></span></h5>
+ -->
+<div class="col-xs-6 col-md-3">
+<div class='thumbnail'>
+    <span class = 'user_avatars'>	
+		<% song.users.each_with_index do |user| %>
+		<%= link_to gravatar_for(user, size: 50 ), user%>
+		<%end%>
+	</span>
+	<div class = 'caption'>
+		<h4><%= song.name%></h4>
+		<span class = 'timestamp'>
+			Last Updated: <%= time_ago_in_words(song.created_at) %>  ago.
+		</span>	    
+
+	</div>	
+</div>
+<button type = 'button' class="play btn btn-default">Play</button>
+<button type = 'button' class="stop btn btn-default">Stop</button>
+<div class = 'btn-group'>
+	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+		View Tracks <span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu" role="menu">
+		<li id='song' class='song' data-song-name = <%= song.name %>>  <%=song.name%>
+			<div id = 'song_details' style='display:block;'>
+				<ul class='playlist js-track-list'>	
+					<%= render :partial =>'songs/song_tracks', :locals =>{:song => song}  %>
+				</ul>
+			</div>
+		</li>
+	</ul>	
+
+</div>
+</div>
+<div id = 'separator'><hr></div>
 <%= will_paginate @songs %>
+
