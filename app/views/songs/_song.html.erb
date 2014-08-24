@@ -1,38 +1,62 @@
-<!-- <h5><span class='caret'> <%=song.name%></span></h5>
- -->
-<div class="col-xs-6 col-md-3">
-<div class='thumbnail'>
-    <span class = 'user_avatars'>	
-		<% song.users.each_with_index do |user| %>
-		<%= link_to gravatar_for(user, size: 50 ), user%>
-		<%end%>
-	</span>
-	<div class = 'caption'>
+<div class = 'thumbnail'>
+    <div class = 'caption'>
 		<h4><%= song.name%></h4>
 		<span class = 'timestamp'>
 			Last Updated: <%= time_ago_in_words(song.created_at) %>  ago.
 		</span>	    
-
 	</div>	
-</div>
-<button type = 'button' class="play btn btn-default">Play</button>
-<button type = 'button' class="stop btn btn-default">Stop</button>
-<div class = 'btn-group'>
-	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-		View Tracks <span class="caret"></span>
-	</button>
-	<ul class="dropdown-menu" role="menu">
-		<li id='song' class='song' data-song-name = <%= song.name %>>  <%=song.name%>
-			<div id = 'song_details' style='display:block;'>
-				<ul class='playlist js-track-list'>	
-					<%= render :partial =>'songs/song_tracks', :locals =>{:song => song}  %>
-				</ul>
-			</div>
-		</li>
-	</ul>	
+	<span class = 'user_avatars'>	
+		<% song.users.each_with_index do |user| %>
+			<%= link_to gravatar_for(user, size: 50 ), user%>
+		<%end%>
+	</span>
+	<div style = 'clear:both;'>
+		<button type = 'button' class='play btn btn-link'>Play</button>
+		<button type = 'button' class='stop btn btn-link'>Stop</button>
+		<button type="button" class='btn btn-link' data-toggle='collapse' data-target= '#<%= song.id %>'>
+			Tracks <span class="caret"></span>
+		</button>
+		<% if song.microposts.any? %>	
+			<button type = 'button' class='btn btn-link' data-toggle='collapse' data-target='#posts_for_<%=song.id%>'>Shouts <span 	class="caret"></span></button>	
+		<% end %>	
+	</div>
 
+	<div  id = '<%= song.id%>' class='collapse'>
+		<ul>
+			<li id='song' class='song' data-song-name = <%= song.name %>>  <%=song.name%>
+				<div id = 'song_details' style='display:block;'>
+					<ul class='playlist js-track-list'>	
+						<%= render :partial =>'songs/song_tracks', :locals =>{:song => song}  %>
+					</ul>
+				</div>
+			</li>
+		</ul>	
+	</div>	
+	<div id = 'song_posts' style='background-color: snow'>
+		<% if song.microposts.any? %>	
+	        <% song.microposts.each do |post| %>			
+		    <div id= 'posts_for_<%=song.id%>' class='collapse'>	
+			<ol class = 'microposts' >  		
+
+		        <li style='border-top: none'>
+		        	<span class = 'user'>
+						<%= link_to gravatar_for(post.user, size: 50), post.user %>
+					</span>
+					<span class = 'content'><%= post.content %></span>
+					<span class = 'timestamp'>
+					        Posted <%= time_ago_in_words(post.created_at) %> ago.
+	  				</span>
+				    <% if current_user?(post.user) %>
+				      <%= link_to "delete", post, method: :delete,
+				                                       data: { confirm: "You sure?" },
+				                                       title: post.content %>
+				    <% end %>
+		        </li>	
+	    		<% end %>	
+			</ol>
+			</div>
+		<% end %>
+	</div>
 </div>
-</div>
-<div id = 'separator'><hr></div>
 <%= will_paginate @songs %>
 

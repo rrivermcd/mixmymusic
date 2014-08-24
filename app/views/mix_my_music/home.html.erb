@@ -11,23 +11,25 @@
       <section>
         <%= render 'shared/micropost_form' %>
       </section>
-       <div id='accordion'>
-        <h4>Who's shouting? <span class = 'caret'></span></h4>
-        <section>        
+      <button type="button" class='btn btn-link' data-toggle='collapse' data-target= '#shouts'>
+        Who's shouting? <span class="caret"></span>
+      </button>
+      <section id = 'shouts' class='collapse in'>        
           <%= render 'shared/feed' %>
-        </section>
-      </div>   
+      </section>
     </aside>
     <div class="span8">
-      <%= render 'songs/song_list' %>
       <section>
-      <hr>         
+        <%= render 'songs/song_list' %>
+      </section>
+      <section>
+        <hr>         
         <h4>Start a song of your own</h4>        
         <%= render 'shared/track_upload_form' %>
       </section>        
       <hr>
     </div>
-  </div>
+  </div>   
 <% else %>
   <div class="center hero-unit">
     <h1>MMM Under Development</h1>
