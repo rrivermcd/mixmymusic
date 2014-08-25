@@ -1,12 +1,9 @@
-<% parts = Part.where('song_id = ?', song.id) %>
-<% parts.each do |part| %>
-	<% tracks = Track.where('id = ?', part.track_id) %>
-	<% tracks.each do |track| %>
-		<li class = 'url' data-url = <%= @bucket.objects[track.track_url].url_for(:read)%>>
-			<span class = 'user_avatars'>	
-			<%= link_to gravatar_for(track.user, size: 20 ), track.user%>
-			</span>
-			<%= track.name %>
-		</li>
-	<% end %>
+<% song.tracks.each do |track| %>
+	<li class = 'url' data-url = <%= @bucket.objects[track.track_url].url_for(:read)%>>
+		<span class = 'user_avatars'>	
+		<%= link_to gravatar_for(track.user, size: 30 ), track.user%>
+		</span>
+		<%= track.name %>
+	</li>
 <% end %>
+

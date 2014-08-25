@@ -14,7 +14,7 @@ class TracksController < ApplicationController
 			@track.save
 	      	if @song_id.blank?
 				@song = Song.create(:name => @track.name)
-				@song_id = @song.id	      		
+				@song_id = @song.id	 
   			end      		
       			@track.parts.create(:song_id => @song_id, :user_id => current_user.id)
 		end

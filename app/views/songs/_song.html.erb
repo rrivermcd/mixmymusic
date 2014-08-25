@@ -1,4 +1,4 @@
-<div class = 'thumbnail'>
+<div class = 'thumbnail' style = 'overflow-y: automatic'>
     <div class = 'caption'>
 		<h4><%= song.name%></h4>
 		<span class = 'timestamp'>
@@ -11,52 +11,30 @@
 		<%end%>
 	</span>
 	<div style = 'clear:both;'>
-		<button type = 'button' class='play btn btn-link'>Play</button>
-		<button type = 'button' class='stop btn btn-link'>Stop</button>
-		<button type="button" class='btn btn-link' data-toggle='collapse' data-target= '#<%= song.id %>'>
-			Tracks <span class="caret"></span>
-		</button>
-		<% if song.microposts.any? %>	
-			<button type = 'button' class='btn btn-link' data-toggle='collapse' data-target='#posts_for_<%=song.id%>'>Shouts <span 	class="caret"></span></button>	
-		<% end %>	
+		<%= render :partial =>'songs/song_buttons', :locals =>{:song => song}  %>
 	</div>
 
-	<div  id = '<%= song.id%>' class='collapse'>
-		<ul>
-			<li id='song' class='song' data-song-name = <%= song.name %>>  <%=song.name%>
-				<div id = 'song_details' style='display:block;'>
+	<div id = 'song<%= song.id%>' class='collapse' style='background-color: snow'>
+		<ol class = 'microposts'>
+			<li id='song' class='song' data-song-name = <%= song.name %>><%=song.name%>
+				<div id = 'song_details'>
 					<ul class='playlist js-track-list'>	
 						<%= render :partial =>'songs/song_tracks', :locals =>{:song => song}  %>
 					</ul>
 				</div>
 			</li>
 		</ul>	
+	</div>
+ 	
+ 	<div id = 'upload_to_song' class='collapse'>
+		<%=  render :partial => 'shared/track_upload_form', :locals =>{:song => song} %>
 	</div>	
-	<div id = 'song_posts' style='background-color: snow'>
-		<% if song.microposts.any? %>	
-	        <% song.microposts.each do |post| %>			
-		    <div id= 'posts_for_<%=song.id%>' class='collapse'>	
-			<ol class = 'microposts' >  		
-
-		        <li style='border-top: none'>
-		        	<span class = 'user'>
-						<%= link_to gravatar_for(post.user, size: 50), post.user %>
-					</span>
-					<span class = 'content'><%= post.content %></span>
-					<span class = 'timestamp'>
-					        Posted <%= time_ago_in_words(post.created_at) %> ago.
-	  				</span>
-				    <% if current_user?(post.user) %>
-				      <%= link_to "delete", post, method: :delete,
-				                                       data: { confirm: "You sure?" },
-				                                       title: post.content %>
-				    <% end %>
-		        </li>	
-	    		<% end %>	
-			</ol>
-			</div>
-		<% end %>
+	<div id = 'song_posts' class = 'collapse' style='background-color: snow'>
+		<%= render :partial =>'songs/song_posts', :locals =>{:song => song} %>
+	</div>
+	<div id = 'post_song' class='collapse'>
+		<%= render '/shared/micropost_form' %>
 	</div>
 </div>
-<%= will_paginate @songs %>
+
 

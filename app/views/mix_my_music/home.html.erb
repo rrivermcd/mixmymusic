@@ -1,33 +1,42 @@
 <% if signed_in? %>
   <div class="row">
     <aside class="span4">
-      <section>
+      <section name = 'user_info'>
         <%= render 'shared/user_info' %>
       </section>
-      <section>
+      <section name = 'user_stats'>
         <%= render 'shared/stats' %>
       </section>
-      <h4> Shout it out </h4>
-      <section>
-        <%= render 'shared/micropost_form' %>
-      </section>
-      <button type="button" class='btn btn-link' data-toggle='collapse' data-target= '#shouts'>
-        Who's shouting? <span class="caret"></span>
-      </button>
-      <section id = 'shouts' class='collapse in'>        
-          <%= render 'shared/feed' %>
-      </section>
+        <button type="button" class='btn btn-block' data-toggle='collapse' data-target= '#shout_form'>
+          Shout it out 
+        </button>
+        <div id='shout_form' class='collapse in'>
+          <%= render 'shared/micropost_form' %>
+        </div>
+         <button type="button" class='btn btn-block' data-toggle='collapse' data-target= '#shouts'>
+          Look who's shouting 
+        </button>
+        <div id = 'shouts' class='collapse in'>        
+            <%= render 'shared/feed' %>
+        </div>
     </aside>
     <div class="span8">
-      <section>
-        <%= render 'songs/song_list' %>
+      <section name='track_uploader'>
+        <button type="button" class='btn btn-block' data-toggle='collapse' data-target= '#upload'>
+          Upload 
+        </button>     
+        <div id='upload' class='collapse'>
+          <%= render 'shared/track_upload_form' %>
+        </div> 
       </section>
-      <section>
-        <hr>         
-        <h4>Start a song of your own</h4>        
-        <%= render 'shared/track_upload_form' %>
-      </section>        
-      <hr>
+      <section name = 'listen_to_songs'>      
+        <button type="button" class='btn btn-block' data-toggle='collapse' data-target= '#song_list'>
+          Listen 
+        </button>
+        <div id='song_list' class='collapse in'>
+          <%= render 'songs/song_list' %>
+        </div>
+      </section>      
     </div>
   </div>   
 <% else %>
@@ -39,8 +48,61 @@
 
 <% end %>
 
+<%= will_paginate @songs %>
+
 <script>
 $(function() {
-  $('#accordion').accordion({ header: "h4", collapsible: true });
+
+  $('.directUpload').find("input:file").each(function(i, elem) {
+    var fileInput    = $(elem);
+    var form         = $(fileInput.parents('form:first'));
+    var submitButton = form.find('input[type="submit"]');
+    var progressBar  = $("<div class='bar'></div>");
+    var barContainer = $("<div class='progress'></div>").append(progressBar);
+    fileInput.after(barContainer);
+    fileInput.fileupload({
+      fileInput:       fileInput,
+      url:             '<%= @s3_direct_post.url %>',
+      type:            'POST',
+      autoUpload:       true,
+      formData:         <%= @s3_direct_post.fields.to_json.html_safe %>,
+      paramName:        'file', // S3 does not like nested name fields i.e. name="user[avatar_url]"
+      dataType:         'XML',  // S3 returns XML if success_action_status is set to 201
+      replaceFileInput: false,
+      progressall: function (e, data) {
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        progressBar.css('width', progress + '%')
+      },
+
+      start: function (e) {
+        submitButton.prop('disabled', true);
+
+        progressBar.
+          css('background', 'green').
+          css('display', 'block').
+          css('width', '0%').
+          text("Loading...");
+      },
+      done: function(e, data) {
+        submitButton.prop('disabled', false);
+        progressBar.text("Uploading done");
+
+        // extract key and generate URL from response
+        var key   = $(data.jqXHR.responseXML).find("Key").text();
+        // var url   = '//<%= @s3_direct_post.url.host %>/' + key;
+
+        // create hidden field
+        var input = $("<input />", { type:'hidden', name: fileInput.attr('name'), value: key })
+        form.append(input);
+      },
+      fail: function(e, data) {
+        submitButton.prop('disabled', false);
+
+        progressBar.
+          css("background", "red").
+          text("Failed");
+      }
+    });
+  });
 });
 </script>

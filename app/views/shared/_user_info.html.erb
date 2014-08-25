@@ -5,5 +5,6 @@
   <%= current_user.username %>
 </h1>
 <span>
-  <%= pluralize(current_user.microposts.count, "shout out") %>
+  <%= pluralize(current_user.tracks.count, 'track') %>  
+  <%= pluralize(current_user.microposts.count, "shout") %>
 </span>
