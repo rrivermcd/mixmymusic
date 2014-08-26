@@ -1,10 +1,7 @@
-<div class = 'thumbnail' style = 'overflow-y: automatic'>
-    <div class = 'caption'>
-		<h4><%= song.name%></h4>
-		<span class = 'timestamp'>
-			Last Updated: <%= time_ago_in_words(song.created_at) %>  ago.
-		</span>	    
-	</div>	
+<li id='song_<%=song.id%>' class='song'><%=song.name%>
+	<span class = 'timestamp'>
+		Last Updated: <%= time_ago_in_words(song.created_at) %>  ago.
+	</span>	    
 	<span class = 'user_avatars'>	
 		<% song.users.each_with_index do |user| %>
 			<%= link_to gravatar_for(user, size: 50 ), user%>
@@ -13,28 +10,22 @@
 	<div style = 'clear:both;'>
 		<%= render :partial =>'songs/song_buttons', :locals =>{:song => song}  %>
 	</div>
-
-	<div id = 'song<%= song.id%>' class='collapse' style='background-color: snow'>
-		<ol class = 'microposts'>
-			<li id='song' class='song' data-song-name = <%= song.name %>><%=song.name%>
-				<div id = 'song_details'>
-					<ul class='playlist js-track-list'>	
-						<%= render :partial =>'songs/song_tracks', :locals =>{:song => song}  %>
-					</ul>
-				</div>
-			</li>
-		</ul>	
+	<div id='tracks_toggle_<%= song.id%>' class='collapse' style='background-color: snow'>
+		<div id = 'song_details'>
+			<ul class='playlist js-track-list'>	
+				<%= render :partial =>'songs/song_tracks', :locals =>{:song => song}  %>
+			</ul>
+		</div>
 	</div>
- 	
- 	<div id = 'upload_to_song' class='collapse'>
+ 	<div id = 'upload_toggle_<%=song.id%>' class='collapse'>
 		<%=  render :partial => 'shared/track_upload_form', :locals =>{:song => song} %>
 	</div>	
-	<div id = 'song_posts' class = 'collapse' style='background-color: snow'>
+	<div id = 'posts_toggle_<%=song.id%>' class = 'collapse' style='background-color: snow'>
 		<%= render :partial =>'songs/song_posts', :locals =>{:song => song} %>
 	</div>
-	<div id = 'post_song' class='collapse'>
+	<div id = 'post_to_toggle_<%=song.id%>' class='collapse'>
 		<%= render '/shared/micropost_form' %>
 	</div>
-</div>
+</li>
 
 

@@ -27,20 +27,18 @@
 
 				audioCtx.decodeAudioData(audioData, function(buffer) 
 				{
-		        	myBuffer = buffer;
+					myBuffer = buffer;
 		        	audioBuffer[audioBuffer.length] = myBuffer;
-		      	},
-
+  			 		if (tracks.length > 0) 
+			 		{
+			 			getTracks(tracks);
+			        } 
+			        else 
+			        {
+			        	setupSource();
+			        }
+		    	},
 	      		function(e){"Error with decoding audio data" + e.err});
-
-		 		if (tracks.length > 0) 
-		 		{
-		 			getTracks(tracks);
-		        } 
-		        else
-		        {
-//		        	setupSource();
-		        }
 		    }
 		});
 	}
@@ -52,13 +50,20 @@
 		
 		for (i=0; i<length; i++)
 		{
-			if (!source[i])		
-			{
+
 			setSourceBuffer = audioCtx.createBufferSource();
 			source.push(setSourceBuffer);
 			source[i].buffer = audioBuffer[i];
 			source[i].connect(audioCtx.destination);
 			source[i].loop = true;
-			}
+
+		}
+		playSong();
+	}
+	function playSong(){
+		// setupSource();
+		for (i=0; i< source.length; i++)
+		{ 
+			source[i].start(0);	
 		}
 	}

@@ -1,24 +1,25 @@
 <div class= 'btn-group' style='margin-top: 5px;'>
 	<div name = 'song_control' class = 'btn-group'>
-		<button type = 'button' class='play btn'>Play</button>
+		<button type = 'button' class='play btn' data-song = '<%=song.id%>'>Play</button>
 		<button type = 'button' class='stop btn'>Stop</button>
 	</div>
 	<div name = 'track_expander' class = 'btn-group'>
-		<button type="button" class='btn' data-toggle='collapse' data-target= '#song<%= song.id %>'>
+		<button type="button" class='btn' data-toggle='collapse' data-target= '#tracks_toggle_<%= song.id %>'>
 			 <%= pluralize(song.tracks.count, "Track") %> 
 			 <span  class="caret"></span>
 		</button>
-		<button type="button" class='btn' data-toggle='collapse' data-target = '#upload_to_song'>
+		<button type="button" class='btn' data-toggle='collapse' data-target = '#upload_toggle_<%=song.id%>'>
 			+
 		</button>
 	</div>
 	<div name = 'song_post_expander' class = 'btn-group'>
 		<% if song.microposts.any? %>	
-			<button type='button' class='btn' data-toggle='collapse' data-target='#song_posts'> 
+			<button type='button' class='btn' data-toggle='collapse' data-target='#posts_toggle_<%=song.id%>'> 
 				<%= pluralize(song.microposts.count, "Shout") %> 
 				<span class="caret"></span>
 			</button>	
-			<button type="button" class='btn' data-toggle='collapse' data-target = '#post_song'>
+			<button type="button" class='btn' data-toggle='collapse' 
+				data-target = '#post_to_toggle_<%=song.id%>'>
 				+
 			</button>
 		<% end %>
