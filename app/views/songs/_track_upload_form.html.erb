@@ -1,10 +1,11 @@
 <% set_direct_post %>
-
 <%= form_for(@track, html: { class: "directUpload" }) do |f| %>
   <div class="field" style='padding-top: 5px;'>
-    <span><%= f.label :Track %></span>
+    <span><%= f.label 'Upload a Track' %></span>
     <%= f.file_field :track_url, accept: "audio/*"%>
-<!--       <%= hidden_field_tag :song_id, '34'%> -->
+    <% if defined? song %>
+		<%= hidden_field_tag 'song_id', song.id%> 
+	<% end %>
   </div>
   <div class="actions">
     <%= f.submit class: 'btn' %>

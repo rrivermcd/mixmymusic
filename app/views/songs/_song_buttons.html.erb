@@ -8,20 +8,18 @@
 			 <%= pluralize(song.tracks.count, "Track") %> 
 			 <span  class="caret"></span>
 		</button>
-		<button type="button" class='btn' data-toggle='collapse' data-target = '#upload_toggle_<%=song.id%>'>
+		<button type="button" class='btn' data-toggle='collapse' data-target = '#upload_track_toggle_<%=song.id%>'>
 			+
 		</button>
 	</div>
-	<div name = 'song_post_expander' class = 'btn-group'>
-		<% if song.microposts.any? %>	
-			<button type='button' class='btn' data-toggle='collapse' data-target='#posts_toggle_<%=song.id%>'> 
+	<div name = 'song_posts_expander' class = 'btn-group'>	
+			<button type='button' class='btn' data-toggle='collapse' data-target='#song_posts_toggle_<%=song.id%>'> 
 				<%= pluralize(song.microposts.count, "Shout") %> 
 				<span class="caret"></span>
 			</button>	
 			<button type="button" class='btn' data-toggle='collapse' 
-				data-target = '#post_to_toggle_<%=song.id%>'>
+				data-target = '#post_comment_toggle_<%=song.id%>'>
 				+
 			</button>
-		<% end %>
 	</div>
 </div>

@@ -1,11 +1,14 @@
 <div class = 'panel panel-default'>
+	<% if defined? song%>
+		<%=song.name%>
+	<% end %>
 	<%= form_for(@micropost) do |f| %>
 	  <%= render 'shared/error_messages', object: f.object %>
 	  <div class="field">
 	    <%= f.text_area :content, placeholder: "Give a shout out..." %>
-	    <%= f.hidden_field :song_id, :value =>  @song_id %>
-	    <%= f.hidden_field :track_id, :value => @track_id %>
-	  </div>
+    <% if defined? song %>
+		<%= hidden_field_tag 'song_id', song.id%> 
+	<% end %>	  </div>
 	  <%= f.submit "Shout it out!", class: "btn" %>
 	<% end %>
 

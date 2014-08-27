@@ -4,7 +4,9 @@
 
   def create
     @micropost = current_user.microposts.build(micropost_params)
-    if @micropost.save
+    @song = song_params
+    @post = Micropost.new(:content => @micropost.content, :song_id => @song, :user_id => @micropost.user_id)
+    if @post.save
       flash[:success] = "It's been Shouted!"
       redirect_to root_url
     else
@@ -21,11 +23,15 @@
   private
 
     def micropost_params
-      params.require(:micropost).permit(:content, :track_id, :song_id)
+      params.require(:micropost).permit(:content)
     end
 
     def correct_user
       @micropost = current_user.microposts.find_by(id: params[:id])
       redirect_to root_url if @micropost.nil?
+    end
+    
+    def song_params
+      params[:song_id]
     end
 end

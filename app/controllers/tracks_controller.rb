@@ -32,7 +32,7 @@ class TracksController < ApplicationController
 	end
 
 	def song_params
-		params.permit(params[:song_id])
+		params[:song_id]
 	end
 
 	def sanitize_filename(file_name)
