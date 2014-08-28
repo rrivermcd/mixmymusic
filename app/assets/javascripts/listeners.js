@@ -9,6 +9,7 @@ ready = function()
 
 	loadListeners('play');
 	loadListeners('stop');
+	loadListeners('mute_track');
 
 	function loadListeners(element_class)
 	{
@@ -23,7 +24,7 @@ ready = function()
 		    	element_list[i].addEventListener("click", function(e)
 		      	{ 
 		      		// e.target.disabled = true;
-		      		var song_id = e.target.dataset.song;
+		      		var song_id = e.currentTarget.dataset.song;
 		      		loadTracks(song_id);
 					// // setupSource();
 					// for (i=0; i< source.length; i++)
@@ -53,6 +54,24 @@ ready = function()
 				
 			}
 		}
+		if (element_class =='mute_track')
+		{
+			
+		 	for (var i=0; i < element_list.length; i++) 
+		    {
+		    	//add click listener
+		    	element_list[i].addEventListener("click", function(e)
+		      	{ 
+					var track_id = e.currentTarget.dataset.track;
+					var glyph_color = e.target.style.color;
+					if (glyph_color == '') {
+						e.target.style.color = 'red';
+					} else {
+						e.target.style.color = '';
+					}
+				});
+	    	}
+	    }	
 	}
 }
 

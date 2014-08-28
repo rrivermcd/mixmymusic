@@ -1,9 +1,6 @@
-﻿@import "bootstrap";
-
-/* universal */
+﻿/* universal */
 
 html {
-  overflow-y: scroll;
 }
 
 body {
@@ -26,7 +23,7 @@ textarea {
   margin-bottom: 10px;
 }
 
-/* typography */
+/* typography 
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
@@ -52,6 +49,7 @@ p {
   font-size: 1.1em;
   line-height: 1.7em;
 }
+*/
 
 /* header */
 
@@ -110,7 +108,7 @@ footer ul li {
   float: left;
   width: 100%;
   margin-top: 45px;
-  @include box_sizing(border-box);
+
 }
 
 /* sidebar */
@@ -118,7 +116,7 @@ footer ul li {
 aside {
   section {
     padding: 10px 0;
-    border-top: 1px solid $grayLighter;
+    border-top: 1px solid  LightGray;
     &:first-child {
       border: 0;
       padding-top: 0;
@@ -149,7 +147,7 @@ input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
   margin-bottom: 15px;
-  @include box_sizing(border-box);
+
 }
 
 input {
@@ -177,40 +175,43 @@ input {
   li {
     overflow: auto;
     padding: 10px 0;
-    border-top: 1px solid $grayLighter;
+    border-top: 1px solid  LightGray;
     &:last-child {
-      border-bottom: 1px solid $grayLighter;
+      border-bottom: 1px solid  LightGray;
     }
   }
 }
 
 /* microposts */
 
-.microposts {
+.microposts 
+{
   list-style: none;
   margin: 10px 0 0 0;
-
   li {
     padding: 10px 0;
     border-bottom: 1px solid #e8e8e8;
   }
-}
+}  
 .content {
   display: block;
 }
 .timestamp {
-  color: $grayLight;
+  color: LightGray;
 }
 .gravatar {
   float: left;
   margin-right: 10px;
 }
-aside {
-  textarea {
+aside 
+{
+  textarea 
+  {
     height: 100px;
     margin-bottom: 5px;
   }
 }
+
 
 /* Michael's Additions */
 
@@ -228,7 +229,7 @@ aside {
 
 #tracks {
   padding-bottom: 25px;
-  border-bottom: 1px solid $grayLighter;
+  border-bottom: 1px solid  LightGray;
 }
 
 /* progress bar */
@@ -250,7 +251,7 @@ aside {
 }
 
 
-/* FAKE BUTTON STYLING */
+/* FAKE BUTTON STYLING 
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -269,7 +270,7 @@ aside {
     background: white;
     cursor: inherit;
     display: block;
-}
+}*/
 
  #progress_bar {
     margin: 10px 0;

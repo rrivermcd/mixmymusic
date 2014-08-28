@@ -1,10 +1,14 @@
 <% song.tracks.each do |track| %>
-	<li class = 'url' data-url = <%= @bucket.objects[track.track_url].url_for(:read)%>>
+	<li class = 'url list-group-item' data-url = <%= @bucket.objects[track.track_url].url_for(:read)%>>
+		<button type = 'button' class='mute_track btn btn-default btn-xs' data-track = '<%=track.id%>' >
+			<span class="glyphicon glyphicon-ban-circle">
+			</span>
+		</button>		
+		<%= track.name %>		
 		<span class = 'user_avatars'>	
 		<%= link_to gravatar_for(track.user, size: 30 ), track.user%>
 		</span>
-		<%= track.name %>
-		  <span class="timestamp">
+	  	<span class="timestamp">
     		Posted <%= time_ago_in_words(track.created_at) %> ago.
 		</span>
 	</li>

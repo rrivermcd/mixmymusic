@@ -1,7 +1,6 @@
 <% if song.microposts.any? %>	
     <% song.microposts.each do |post| %>			
-		<ol class = 'microposts' >  		
-		    <li>
+		    <li class='list-group-item'>
 		    	<span class = 'user'>
 					<%= link_to gravatar_for(post.user, size: 50), post.user %></span>
 				<span class = 'content'><%= post.content %></span>
@@ -15,5 +14,4 @@
 			    <% end %>
 		    </li>	
 			<% end %>	
-		</ol>
 <% end %>

@@ -1,35 +1,44 @@
-<li id='song_<%=song.id%>' class='song' ><span style='font-size: 16px; font-weight: bold;'><%=song.name%></span>
-	<div>
-		<span class = 'timestamp'>
-			Last Updated: <%= time_ago_in_words(song.created_at) %>  ago.
-		</span>
-	<div>
-	<div>	    
-		<span class = 'user_avatars'>	
-			<% song.users.each_with_index do |user| %>
-				<%= link_to gravatar_for(user, size: 50 ), user%>
-			<%end%>
-		</span>
-	</div>
-	<div style = 'clear:both;'>
-		<%= render partial: 'songs/song_buttons', locals: {song: song}  %>
-	</div>
-	<div id='tracks_toggle_<%= song.id%>' class='collapse' style='background-color: snow'>
-		<div id = 'song_details'>
-			<ul class='playlist js-track-list'>	
-				<%= render partial: 'songs/song_tracks', locals: {song: song}  %>
+<div class='col-xs-4'>
+	<li id='song_<%=song.id%>' class='song list-group-item' style='background-color: snow;' >
+	  	<big>
+		<strong>
+			<%=song.name%>
+		</strong>
+		</big>
+		<div>
+			<span class = 'timestamp'>
+				Last Updated: <%= time_ago_in_words(song.created_at) %>  ago.
+			</span>
+		<div>
+		<div>	    
+			<span class = 'user_avatars'>	
+				<% song.users.each_with_index do |user| %>
+					<%= link_to gravatar_for(user, size: 50 ), user%>
+				<%end%>
+			</span>
+		</div>
+		<div style = 'clear:both;'>
+			<%= render partial: 'songs/song_buttons', locals: {song: song}  %>
+		</div>
+		<div id='tracks_toggle_<%= song.id%>' class='collapse'>
+			<div id = 'song_details'>
+				<ul class='js-track-list playlist list-group microposts '>	
+					<%= render partial: 'songs/song_tracks', locals: {song: song}  %>
+				</ul>
+			</div>
+		</div>
+	 	<div id = 'upload_track_toggle_<%=song.id%>' class='collapse'>
+			<%=  render partial: 'songs/track_upload_form', locals: {song: song} %>
+		</div>	
+		<div id = 'song_posts_toggle_<%=song.id%>' class = 'collapse'>
+			<ul class='list-group microposts'>
+				<%= render partial: 'songs/song_posts', locals: {song: song} %>
 			</ul>
 		</div>
-	</div>
- 	<div id = 'upload_track_toggle_<%=song.id%>' class='collapse'>
-		<%=  render partial: 'songs/track_upload_form', locals: {song: song} %>
-	</div>	
-	<div id = 'song_posts_toggle_<%=song.id%>' class = 'collapse' style='background-color: snow'>
-		<%= render partial: 'songs/song_posts', locals: {song: song} %>
-	</div>
-	<div id = 'post_comment_toggle_<%=song.id%>' class='collapse'>
-		<%= render partial: '/shared/micropost_form', locals: {song: song} %>
-	</div>
-</li>
+		<div id = 'post_comment_toggle_<%=song.id%>' class='collapse'>
+			<%= render partial: '/shared/micropost_form', locals: {song: song} %>
+		</div>
+	</li>
+</div>
 
 

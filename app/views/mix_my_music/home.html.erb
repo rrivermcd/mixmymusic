@@ -1,46 +1,87 @@
 <% if signed_in? %>
-  <div class="row">
-    <aside class="span4">
-      <section name = 'user_info'>
-        <%= render 'shared/user_info' %>
-      </section>
-      <section name = 'user_stats'>
-        <%= render 'shared/stats' %>
-      </section>
-        <button type="button" class='btn btn-block' data-toggle='collapse' data-target= '#shout_form'>
-          Shout it out 
-        </button>
-        <div id='shout_form' class='collapse in'>
-          <%= render 'shared/micropost_form' %>
+  <div class="row-fluid">
+    <aside class="col-xs-3">
+      <div class='list-group'>
+        <div class='list-group-item'>
+          <ul id='tabs' class='nav nav-pills nav-justified' data-tabs='tabs'>
+            <li class='active'>
+              <a href = '#shouts' data-toggle = 'tab'>
+                <span class='glyphicon glyphicon-comment'></span>
+              </a>
+            </li>        
+
+            <li>
+              <a href = '#upload' data-toggle = 'tab'>
+                <span class='glyphicon glyphicon-cloud-upload'></span>
+              </a>
+            </li>
+            <li>
+              <a href = '#shout' data-toggle = 'tab'>
+                <span class='glyphicon glyphicon-pencil'></span>
+              </a>
+            </li>
+            <li> 
+              <a href = '#about' data-toggle = 'tab'>
+                <span class='glyphicon glyphicon-user'>
+              </a>
+            </li>
+          </ul>
         </div>
-         <button type="button" class='btn btn-block' data-toggle='collapse' data-target= '#shouts'>
-          Look who's shouting 
-        </button>
-        <div id = 'shouts' class='collapse in'>        
+      </div>
+      <div id='left-tab-content' class='tab-content'>
+        <div id="shouts" class="tab-pane active">
+          <div class='list-group'>     
             <%= render 'shared/feed' %>
+          </div>
+        </div>        
+        <div id="upload" class="tab-pane">
+          <div class='list-group'>
+            <div class='list-group-item'>
+              <%= render 'songs/track_upload_form' %>
+            </div>
+          </div>
         </div>
+        <div id="shout" class="tab-pane">
+          <div class='list-group'>
+            <div class='list-group-item'>          
+              <%= render 'shared/micropost_form' %>
+            </div>
+          </div>
+        </div>
+        <div id="about" class="tab-pane">
+          <div class='list-group'>
+            <div class='list-group-item'>
+              <section name = 'user_info'>
+                <%= render 'shared/user_info' %>
+              </section>
+              <section name = 'user_stats'>
+                <%= render 'shared/stats' %>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
     </aside>
-    <div class="span8">
-      <section name='track_uploader'>
-        <button type="button" class='btn btn-block' data-toggle='collapse' data-target= '#upload'>
-          Upload 
-        </button>     
-        <div id='upload' class='collapse'>
-          <%= render 'songs/track_upload_form' %>
-        </div> 
-      </section>
-      <section name = 'listen_to_songs'>      
-        <button type="button" class='btn btn-block' data-toggle='collapse' data-target= '#song_list'>
-          Listen 
-        </button>
-        <div id='song_list' class='collapse in'>
-          <%= render 'songs/song_list' %>
-        </div>
-      </section>      
-    </div>
+    <div class="col-xs-9">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+                <span class='glyphicon glyphicon-music'></span>
+            </h4>
+          </div>
+          <div id='song_list' class="panel-body">
+            <ul class='list-group '>
+              <%= render 'songs/song_list' %>
+            </ul>
+          </div>
+        </div>      
+      </div>
   </div>   
+
+<%= will_paginate @songs %>
+
 <% else %>
-  <div class="center hero-unit">
+  <div class="center jumbotron">
     <h1>MMM Under Development</h1>
 
      <%= link_to "You can't sign up yet!",'#', class: "btn btn-large btn-primary" %>
@@ -48,7 +89,7 @@
 
 <% end %>
 
-<%= will_paginate @songs %>
+
 
 <script>
 $(function() {

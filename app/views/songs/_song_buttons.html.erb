@@ -1,25 +1,34 @@
-<div class= 'btn-group' style='margin-top: 5px;'>
-	<div name = 'song_control' class = 'btn-group'>
-		<button type = 'button' class='play btn' data-song = '<%=song.id%>'>Play</button>
-		<button type = 'button' class='stop btn'>Stop</button>
+<div class= 'btn-toolbar' style='padding-top: 5px;'>
+	<div name = 'song_control' class = 'btn-group btn-group-sm'>
+		<button type = 'button' class='play btn btn-default' data-song = '<%=song.id%>'>
+			<span class="glyphicon glyphicon-play"></span>
+		</button>
+		<button type = 'button' class='stop btn btn-default'>
+			<span class="glyphicon glyphicon-stop"></span>
+		</button>
 	</div>
-	<div name = 'track_expander' class = 'btn-group'>
-		<button type="button" class='btn' data-toggle='collapse' data-target= '#tracks_toggle_<%= song.id %>'>
+</div>
+<div class= 'btn-toolbar' style='padding-top: 5px;'>
+	<div name = 'track_expander' class = 'btn-group btn-group-sm'>
+		<button type="button" class='btn btn-default' data-toggle='collapse' data-target= '#tracks_toggle_<%= song.id %>'>
 			 <%= pluralize(song.tracks.count, "Track") %> 
-			 <span  class="caret"></span>
+			 <span  class='glyphicon glyphicon-chevron-down'></span>
 		</button>
-		<button type="button" class='btn' data-toggle='collapse' data-target = '#upload_track_toggle_<%=song.id%>'>
-			+
+		<button type="button" class='btn btn-default' data-toggle='collapse' data-target = '#upload_track_toggle_<%=song.id%>'>
+			<span class='glyphicon glyphicon-cloud-upload'></span> 					
 		</button>
 	</div>
-	<div name = 'song_posts_expander' class = 'btn-group'>	
-			<button type='button' class='btn' data-toggle='collapse' data-target='#song_posts_toggle_<%=song.id%>'> 
-				<%= pluralize(song.microposts.count, "Shout") %> 
-				<span class="caret"></span>
-			</button>	
-			<button type="button" class='btn' data-toggle='collapse' 
+	<div name = 'song_posts_expander' class = 'btn-group btn-group-sm'>	
+			<% if song.microposts.count > 0%>
+				<button type='button' class='btn btn-default' data-toggle='collapse' data-target='#song_posts_toggle_<%=song.id%>'>
+						<!-- <%= pluralize(song.microposts.count, "Shout") %>  -->
+						<%= song.microposts.count%> <span class='glyphicon glyphicon-comment'></span>
+						<span class='glyphicon glyphicon-chevron-down'></span>
+				</button>
+			<% end %>	
+			<button type="button" class='btn btn-default' data-toggle='collapse' 
 				data-target = '#post_comment_toggle_<%=song.id%>'>
-				+
+				<span class='glyphicon glyphicon-pencil'></span> 			
 			</button>
 	</div>
 </div>

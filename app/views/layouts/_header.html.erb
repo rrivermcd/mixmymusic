@@ -1,9 +1,8 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
-	<div class="navbar-inner">
+<nav class="navbar navbar-fixed-top navbar-inverse" role='navigation'>
 		<div class="container">
 			<%= link_to "MMM", root_path, id: "logo" %>
       <nav>
-        <ul class="nav pull-right">
+        <ul class="nav navbar-nav navbar-right" role='navigation'>
           <li><%= link_to "Home", root_path %></li>
           <li><%= link_to "Help", help_path %></li>
           <% if signed_in? %>
@@ -27,5 +26,4 @@
         </ul>
       </nav>
     </div>
-  </div>
-</header>
+</nav>
