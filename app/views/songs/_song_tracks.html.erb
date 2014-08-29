@@ -1,5 +1,5 @@
 <% song.tracks.each do |track| %>
-	<li class = 'url list-group-item' data-url = <%= @bucket.objects[track.track_url].url_for(:read)%>>
+	<li class = 'url list-group-item' data-play= 'yes' data-url = <%= @bucket.objects[track.track_url].url_for(:read)%>>
 		<button type = 'button' class='mute_track btn btn-default btn-xs' data-track = '<%=track.id%>' >
 			<span class="glyphicon glyphicon-ban-circle">
 			</span>

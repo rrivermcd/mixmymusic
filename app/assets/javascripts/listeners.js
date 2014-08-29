@@ -55,19 +55,19 @@ ready = function()
 			}
 		}
 		if (element_class =='mute_track')
-		{
-			
+		{			
 		 	for (var i=0; i < element_list.length; i++) 
 		    {
 		    	//add click listener
 		    	element_list[i].addEventListener("click", function(e)
 		      	{ 
-					var track_id = e.currentTarget.dataset.track;
 					var glyph_color = e.target.style.color;
 					if (glyph_color == '') {
 						e.target.style.color = 'red';
+						e.currentTarget.parentNode.dataset.play = 'no';
 					} else {
 						e.target.style.color = '';
+						e.currentTarget.parentNode.dataset.play =  'yes';
 					}
 				});
 	    	}
@@ -76,6 +76,7 @@ ready = function()
 }
 
 //load for document and for new page - Rails way :-\
+var track_manager = new track_manager();
 
  $(document).ready(ready)
  $(document).on('page:load', ready)

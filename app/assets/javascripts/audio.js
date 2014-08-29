@@ -14,14 +14,16 @@
       	var list_length = tracks.children.length;
       	for (var i = 0; i < list_length; i++) 
       	{
-      		var child = tracks.children[i];
-      		var test_url = child.dataset.url;
-      		// alert(test_url)
-      		if (test_url) 
-      		{
-      			url[url.length] = test_url;		      			
-  			}
-  		}
+	  		var child = tracks.children[i];
+	  		if (child.dataset.play == 'yes')
+			{	var test_url = child.dataset.url;
+		  		// alert(test_url)
+		  		if (test_url) 
+		  		{
+		  			url[url.length] = test_url;		      			
+				}
+			}
+		}
 		getTracks(url);
 	}
 
@@ -89,3 +91,14 @@
 			source[i].start(0);	
 		}
 	}
+
+	// function track_manager(){
+	// 	this.track = '';
+	// 	this.tracks = {} ;
+
+
+	// 	this.omit_track = function(track){
+	// 		this.track = track;
+	// 		this.tracks.omitted = this.track;
+	// 	}
+ //  	}
