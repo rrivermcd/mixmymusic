@@ -15,7 +15,7 @@
       	for (var i = 0; i < list_length; i++) 
       	{
 	  		var child = tracks.children[i];
-	  		if (child.dataset.play == 'yes')
+	  		if (child.dataset.load  == 'yes')
 			{	var test_url = child.dataset.url;
 		  		// alert(test_url)
 		  		if (test_url) 

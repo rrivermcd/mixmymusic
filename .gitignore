@@ -17,4 +17,8 @@
 
 .env
 Procfile
+
 config/environment_variables.yml
+config/s3.yml
+config/secrets.yml
+config/initializers/s3.rb

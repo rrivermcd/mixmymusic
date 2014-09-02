@@ -64,10 +64,10 @@ ready = function()
 					var glyph_color = e.target.style.color;
 					if (glyph_color == '') {
 						e.target.style.color = 'red';
-						e.currentTarget.parentNode.dataset.play = 'no';
+						e.currentTarget.parentNode.dataset.load = 'no';
 					} else {
 						e.target.style.color = '';
-						e.currentTarget.parentNode.dataset.play =  'yes';
+						e.currentTarget.parentNode.dataset.load =  'yes';
 					}
 				});
 	    	}
@@ -76,7 +76,6 @@ ready = function()
 }
 
 //load for document and for new page - Rails way :-\
-var track_manager = new track_manager();
 
  $(document).ready(ready)
  $(document).on('page:load', ready)
