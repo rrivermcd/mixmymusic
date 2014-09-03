@@ -10,6 +10,7 @@ ready = function()
 	loadListeners('play');
 	loadListeners('stop');
 	loadListeners('mute_track');
+	// loadListeners('track_gain');
 
 	function loadListeners(element_class)
 	{
@@ -35,7 +36,7 @@ ready = function()
 			}
 		}
 
-		//add stop lisener	
+		//add stop listener	
 		if (element_class == 'stop')
 		{
 			for (var i=0; i < element_list.length; i++) 
@@ -71,7 +72,22 @@ ready = function()
 					}
 				});
 	    	}
-	    }	
+	    }
+
+	    // if (element_class == 'track_gain')
+	    // {
+	    // 	for (var i=0; i< element_list.length; i++)
+	    // 	{
+	    // 		element_list[i].addEventListener('change', function(e)
+	    // 		{
+	    // 			var labelID = e.target.id;
+					// var gain = exponentialVolume(this.value, this.max);
+					// var lblGain = String(gain.toFixed(2));
+					// gainNode[i].gain.value = gain; 
+					// document.getElementById(labelID).innerHTML = lblGain ;
+	    // 		}); 
+	    // 	}
+	    // }	
 	}
 }
 
