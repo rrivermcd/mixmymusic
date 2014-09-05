@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  part_id: 1
+  role: MyString
+
+two:
+  part_id: 1
+  role: MyString

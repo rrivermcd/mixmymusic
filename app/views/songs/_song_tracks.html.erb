@@ -6,8 +6,11 @@
 		</button>
 		<button type = 'button' class='track_controls btn btn-default btn-xs' data-toggle='collapse' data-target= '#track_control_toggle_<%= track.id %>'>
 			<span  class='glyphicon glyphicon-random'></span> 
-		</button>		
-		<%= track.name %>		
+		</button>			
+		<%= track.name %>  
+		<p> Roles: <%= pluck_role(track.id, song.id)%></p>
+
+
 		<span class = 'user_avatars'>	
 		<%= link_to gravatar_for(track.user, size: 30 ), track.user%>
 		</span>

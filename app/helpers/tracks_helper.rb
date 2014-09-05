@@ -8,6 +8,12 @@ module TracksHelper
 		s3 = AWS::S3.new
 		@bucket = s3.buckets['mixmymusic']
 	end
+
+	def pluck_role(track_id, song_id)
+		part = Part.find_by(song_id: song_id, track_id: track_id)
+		roles = part.roles.pluck(:role)
+		roles.join (',')
+	end
 end
 
 

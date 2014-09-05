@@ -1,17 +1,3 @@
-// set up javascript
-var ready;
-ready = function() 
-{
-
-	var url = new Array; 	
-
-    // load listeners
-
-	loadListeners('play');
-	loadListeners('stop');
-	loadListeners('mute_track');
-	// loadListeners('track_gain');
-
 	function loadListeners(element_class)
 	{
 		var element_list = document.getElementsByClassName(element_class)
@@ -89,9 +75,34 @@ ready = function()
 	    // 	}
 	    // }	
 	}
-}
 
-//load for document and for new page - Rails way :-\
+	//Gain Listener
+		function loadGainListeners(id)
+	{
+		var id = id;
+		track_gain= document.getElementById('gain_for_track_' + id);
+		track_gain.addEventListener('change', function(e)
+		{
+			var gain = exponentialVolume(this.value, this.max);
+			var lblGain = String(gain.toFixed(2));
+			var lblValue = document.getElementById('gain_label_for_track_'+ id)
+			lblValue.innerHTML = lblGain;
+			gainNode[this.dataset.node].gain.value = gain; 
+		}); 
+	}	
+	
+	//Pan Listener
+	function loadPannerListeners(id)
+	{
+		var id = id;
+		track_panner= document.getElementById('panner_for_track_' + id);
+		track_panner.addEventListener('change', function(e)
+		{
+			var x = this.value;
+			panner[this.dataset.node].setPosition(x, Math.cos(x),1- Math.abs(x));
+			var lblValue = document.getElementById('panner_label_for_track_' + id).innerHTML = x;
+			lblValue.innerHTML = x;
+		}, false);
+	}
 
- $(document).ready(ready)
- $(document).on('page:load', ready)
+
