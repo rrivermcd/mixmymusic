@@ -5,4 +5,7 @@ class Part < ActiveRecord::Base
 	
 	has_many :aspects
 	has_many :roles, through: :aspects
+
+
+
 end

@@ -1,1 +1,25 @@
-<%= render 'song_list' %>
+<%= form_for(@songs) do |f| %>
+  <% if @songs.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@songs.errors.count, "error") %> prohibited
+        this user from being saved:
+      </h2>
+ 
+      <ul>
+      <% @songs.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <div>
+    <%= f.label :name %>
+    <%= f.text_field name %>
+  </div>
+ 
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+

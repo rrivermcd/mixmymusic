@@ -10,7 +10,6 @@
 		<%= track.name %>  
 		<p> Roles: <%= pluck_role(track.id, song.id)%></p>
 
-
 		<span class = 'user_avatars'>	
 		<%= link_to gravatar_for(track.user, size: 30 ), track.user%>
 		</span>

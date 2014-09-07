@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :tracks
   resources :songs
   resources :parts
+  resources :roles
  
   root to: 'mix_my_music#home'
   

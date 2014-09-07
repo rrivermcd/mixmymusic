@@ -4,12 +4,11 @@
     <%= f.label 'Upload a Track' %>
     <%= f.file_field :track_url, accept: "audio/*"%>
     <% if defined? song %>
-		<%= hidden_field_tag 'song_id', song.id%> 
-	<% end %>
-  </div>
+  		<%= hidden_field_tag 'song_id', song.id%>
+	 <% end %>
+      <%= options_from_collection_for_select(Role.all, :id, :role) %>
+      <%= collection_select(:role, :id, Role.all, :id, :role, {}, multiple: true, include_hidden: false) %>  </div>
   <div class="actions">
     <%= f.submit class: 'btn btn-default btn-sm' %>
   </div>
 <% end %>
-
-

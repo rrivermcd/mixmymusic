@@ -7,8 +7,4 @@ class Track < ActiveRecord::Base
 
 	accepts_nested_attributes_for :songs, :parts
 
-	def track_parts(id)
-		Part.joins(:roles).where("track.id = ?", id)
-	end
-
 end
