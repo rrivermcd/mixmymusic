@@ -2,7 +2,7 @@
 <%= form_for(@track, html: { class: "directUpload" }) do |f| %>
   <div class="field" style='padding-top: 10px;'>
     <%= f.label 'Upload a Track' %>
-    <%= f.file_field :track_url, accept: "audio/*"%>
+    <%= f.file_field :track_url, accept: "audio/*, application/pdf" %>
     <% if defined? song %>
   		<%= hidden_field_tag 'song_id', song.id%>
 	 <% end %>

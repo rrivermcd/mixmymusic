@@ -10,15 +10,17 @@ class TracksController < ApplicationController
 		@track = current_user.tracks.build(track_params)
 		@track.name = sanitize_filename(@track.track_url)
 		@song_id = song_params
-		@role_id = role_params
+		@roles = role_params
+		@new_song = new_song(@song_id, @roles)
 		Track.transaction do
 			@track.save
-	      	if @song_id.blank?
+
+	      	if @song_id.blank? or @new_song
 				@song = Song.create(:name => @track.name)
 				@song_id = @song.id	 
   			end      		
       			@part = @track.parts.create(:song_id => @song_id, :user_id => current_user.id)
-      			@role_id[:id].each do |role|
+      			@roles[:id].each do |role|
       				if !role.blank?
    						@part.aspects.create(:role_id => role)
    					end
@@ -49,4 +51,17 @@ class TracksController < ApplicationController
       just_filename = File.basename(file_name, '.*')
       # just_filename.sub(/[^\w\.\-]/,'_')
     end
+
+	def new_song(song_id, roles)
+	new_song = false
+	parts = Part.where(song_id: song_id)
+		parts.each do |part|
+			role_ids = part.roles.pluck(:id)
+			if !(roles[:id] & role_ids.collect{|i| i.to_s}).empty? and !([1, 2, 3] & role_ids).empty?
+				new_song = true
+			end
+		end
+		return new_song
+	end
+
 end

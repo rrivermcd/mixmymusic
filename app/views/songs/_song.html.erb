@@ -1,4 +1,4 @@
-<div class='col-xs-4 '>
+<div class='col-md-4 '>
 	<li id='song_<%=song.id%>' class='song list-group-item' style='background-color: snow;' >
 	  	<big>
 		<strong>
@@ -10,12 +10,11 @@
 				Last Updated: <%= time_ago_in_words(song.created_at) %>  ago.
 			</span>
 		<div>
-		<div>	    
-			<span class = 'user_avatars'>	
-				<% song.users.each_with_index do |user| %>
-					<%= link_to gravatar_for(user, size: 50 ), user%>
-				<%end%>
-			</span>
+			<% song.users.each_with_index do |user| %>
+				<span class = 'user_avatars'>	
+				<%= link_to gravatar_for(user, size: 36 ), user%>
+				</span>
+			<%end%>				
 		</div>
 		<div style = 'clear:both;'>
 			<%= render partial: 'songs/song_buttons', locals: {song: song}  %>

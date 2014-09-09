@@ -14,6 +14,7 @@ module TracksHelper
 		roles = part.roles.pluck(:role)
 		roles.join (',')
 	end
+
 end
 
 
