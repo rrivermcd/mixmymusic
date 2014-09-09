@@ -20,7 +20,7 @@
       	{
 	  		var child = tracks.children[i];
 	  		var track_data = child.dataset;
-	  		if (track_data.load  == 'yes')
+	  		if (track_data.load  == 'true')
 			{	var test_url = track_data.url;
 		  		// alert(test_url)
 		  		if (test_url) 

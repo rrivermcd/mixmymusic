@@ -1,7 +1,7 @@
 module TracksHelper
 	def set_direct_post
 		get_s3
-		@s3_direct_post = @bucket.presigned_post(key: "tracks/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :private, content_type: 'audio/mp3')
+		@s3_direct_post = @bucket.presigned_post(key: "tracks/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :private).where(:content_type).starts_with("")
 		@track = Track.new
 	end
 	def get_s3
@@ -14,6 +14,11 @@ module TracksHelper
 		roles = part.roles.pluck(:role)
 		roles.join (',')
 	end
+
+	def is_audio(track_url)
+		File.extname(track_url) != '.pdf'
+	end
+
 
 end
 

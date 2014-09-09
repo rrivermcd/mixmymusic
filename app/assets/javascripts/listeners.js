@@ -51,10 +51,10 @@
 					var glyph_color = e.target.style.color;
 					if (glyph_color == '') {
 						e.target.style.color = 'red';
-						e.currentTarget.parentNode.dataset.load = 'no';
+						e.currentTarget.parentNode.dataset.load = 'false';
 					} else {
 						e.target.style.color = '';
-						e.currentTarget.parentNode.dataset.load =  'yes';
+						e.currentTarget.parentNode.dataset.load =  'true';
 					}
 				});
 	    	}
