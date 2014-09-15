@@ -1,14 +1,39 @@
 <% set_direct_post %>
 <%= form_for(@track, html: { class: "directUpload" }) do |f| %>
   <div class="field" style='padding-top: 10px;'>
-    <%= f.label 'Upload a Track' %>
+    <%= f.label 'Upload Your Track' %>
     <%= f.file_field :track_url, accept: "audio/*, application/pdf" %>
-    <% if defined? song %>
+  </div>
+  <div style = 'padding-top: 10px;'>
+    <label> Define your tracks role(s). </label>      
+    <%= options_from_collection_for_select(Role.all, :id, :role) %>
+    <%= collection_select(:role, :id, Role.all, :id, :role, {}, multiple: true, include_hidden: false) %>  
+  </div>    
+  <% if defined? song %>
+    <div style = 'padding-top: 10px; padding-bottom: 10px;' class = 'btn-group btn-group-justified'>
+      <div class = 'btn-group'>
+        <button type = 'button' class='track_controls btn btn-info btn-xs' data-toggle='collapse' 
+          data-target= '#track_upload_for_<%= song.id %>'>
+          <strong>Branch This Song!</strong> 
+        </button>
+      </div>
+    </div>
+    <div id='track_upload_for_<%= song.id%>' class='collapse'>
+      <p>Which tracks do you want to <i>include</i> in your branch?</p>
   		<%= hidden_field_tag 'song_id', song.id%>
-	 <% end %>
-      <%= options_from_collection_for_select(Role.all, :id, :role) %>
-      <%= collection_select(:role, :id, Role.all, :id, :role, {}, multiple: true, include_hidden: false) %>  </div>
+      <%song.tracks.each do |track|%>
+        <div class = 'checkbox'>
+          <label >        
+            <input type="checkbox" name="track_<%=track.id%>" value= '<%=track.id%>'> 
+            <%=track.name%>   
+          </label>      
+        </div>
+      <% end %>
+    </div>    
+  <% end %>
+
   <div class="actions">
     <%= f.submit class: 'btn btn-default btn-sm' %>
   </div>
 <% end %>
+

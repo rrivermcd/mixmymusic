@@ -1,5 +1,6 @@
 // set up javascript
 var ready;
+var add_tracks = []
 ready = function() 
 {
 

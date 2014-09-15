@@ -2,14 +2,13 @@
 	<li class = 'url list-group-item' data-track = '<%=track.id%>' data-load = '<%=is_audio(track.track_url)%>' data-url = <%= @bucket.objects[track.track_url].url_for(:read)%>>
 		<% if is_audio(track.track_url) %> 
 			<button type = 'button' class='mute_track btn btn-default btn-xs' data-track = '<%=track.id%>' >
-				<span class="glyphicon glyphicon-ban-circle">
-				</span>
+				<span style='color:white' class="glyphicon glyphicon-ban-circle"></span>
 			</button>
 			<button type = 'button' class='track_controls btn btn-default btn-xs' data-toggle='collapse' data-target= '#track_control_toggle_<%= track.id %>'>
 				<span  class='glyphicon glyphicon-random'></span> 
 			</button>
 		<% else %>
-			<button type = button class='btn btn-default btn-xs'><a href = <%= @bucket.objects[track.track_url].url_for(:read) %> target = "_blank"> Open</button>			
+			<button type = button class='btn btn-default btn-xs'><a href = <%= @bucket.objects[track.track_url].url_for(:read) %> target = "_blank"> Open</a></button>			
 		<% end %>
 		<%= track.name %>  
 		<p> Roles: <%= pluck_role(track.id, song.id)%></p>

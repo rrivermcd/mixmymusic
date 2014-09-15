@@ -52,9 +52,11 @@
 					if (glyph_color == '') {
 						e.target.style.color = 'red';
 						e.currentTarget.parentNode.dataset.load = 'false';
+						sessionStorage.setItem(e.currentTarget.parentNode.dataset.track, 'false');
 					} else {
 						e.target.style.color = '';
 						e.currentTarget.parentNode.dataset.load =  'true';
+						sessionStorage.removeItem(e.currentTarget.parentNode.dataset.track)
 					}
 				});
 	    	}

@@ -1,14 +1,15 @@
 <div class='col-md-4 '>
 	<li id='song_<%=song.id%>' class='song list-group-item' style='background-color: snow;' >
 	  	<big>
-		<strong>
-			<%=song.name%>
-		</strong>
+			<strong>
+				<%=song.name%>
+			</strong>
 		</big>
 		<div>
 			<span class = 'timestamp'>
 				Last Updated: <%= time_ago_in_words(song.created_at) %>  ago.
 			</span>
+		</div>
 		<div>
 			<% song.users.each_with_index do |user| %>
 				<span class = 'user_avatars'>	
