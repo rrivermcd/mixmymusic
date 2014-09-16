@@ -1,10 +1,10 @@
 <% if signed_in? %>
-  <div class="row-fluid">
-    <aside class="col-md-3 ">
+  <div class="row">
+    <aside class="col-md-4">
       <div class='list-group'>
         <div class='list-group-item'>
           <ul id='tabs' class='nav nav-pills' data-tabs='tabs'>
-            <li class='active hidden-md hidden-lg'>
+            <li class='active'>
               <a href = '#song_stream' data-toggle = 'tab'>
                 <span class = 'glyphicon glyphicon-music'></span>
               </a>
@@ -34,7 +34,7 @@
         </div>
       </div>
       <div id='left-tab-content' class='tab-content'>
-        <div id='song_stream' class='tab-pane active hidden-md hidden-lg'>
+        <div id='song_stream' class='tab-pane active'>
             <div id='song_list'>
               <ul class='list-group '>
                 <%= render 'songs/song_list' %>
@@ -73,22 +73,8 @@
           </div>
         </div>
       </div>
-    </aside>
-    <div class="col-md-9 hidden-sm hidden-xs ">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-                <span class='glyphicon glyphicon-music'></span>
-            </h4>
-          </div>
-          <div id='song_list' class="panel-body">
-            <ul class='list-group '>
-              <%= render 'songs/song_list' %>
-            </ul>
-          </div>
-        </div>      
-      </div>
-  </div>   
+    </aside>  
+  </div>    
 
 <%= will_paginate @songs %>
 
@@ -101,9 +87,9 @@
 
 <% end %>
 
-
-
 <script>
+
+
 $(function() {
 
   $('.directUpload').find("input:file").each(function(i, elem) {
@@ -112,7 +98,7 @@ $(function() {
     var submitButton = form.find('input[type="submit"]');
     var progressBar  = $("<div class='bar'></div>");
     var barContainer = $("<div class='progress'></div>").append(progressBar);
-    var fd = <%= @s3_direct_post.fields.to_json.html_safe %>
+    var fd           = <%= @s3_direct_post.fields.to_json.html_safe %>
     fileInput.after(barContainer);
     fileInput.fileupload({
       fileInput:       fileInput,
@@ -167,4 +153,7 @@ $(function() {
 
 
 });
+
+
 </script>
+

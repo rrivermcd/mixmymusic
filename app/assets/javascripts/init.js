@@ -12,7 +12,6 @@ ready = function()
 	loadListeners('stop');
 	loadListeners('mute_track');
 
-
 }
 
 //load for document and for new page - Rails way :-\

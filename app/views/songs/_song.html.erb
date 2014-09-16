@@ -1,4 +1,4 @@
-<div class='col-md-4 '>
+<div >
 	<li id='song_<%=song.id%>' class='song list-group-item' style='background-color: snow;' >
 	  	<big>
 			<strong>
@@ -10,13 +10,25 @@
 				Last Updated: <%= time_ago_in_words(song.created_at) %>  ago.
 			</span>
 		</div>
-		<div>
+		<div class='btn-group btn-group-justified'>
+			<div class = 'btn-group'>
+				<button type="button" class='btn btn-default btn-info' data-toggle='collapse' 
+					data-target = '#meet_the_band_for_<%=song.id%>'>
+					<span class='glyphicon glyphicon-glass'>
+					</span>
+					Meet The Band
+				</button>  			
+			</div>	
+		</div>
+		
+		<div style='padding-top: 5px;' id='meet_the_band_for_<%=song.id%>' class='collapse'>
 			<% song.users.each_with_index do |user| %>
 				<span class = 'user_avatars'>	
 				<%= link_to gravatar_for(user, size: 36 ), user%>
 				</span>
-			<%end%>				
-		</div>
+			<%end%>
+		</div>				
+		
 		<div style = 'clear:both;'>
 			<%= render partial: 'songs/song_buttons', locals: {song: song}  %>
 		</div>
