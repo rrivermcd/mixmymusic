@@ -26,18 +26,21 @@ class TracksController < ApplicationController
 						@part.aspects.create(:role_id => role)
 					end
 				end
-			@branch[:id].each do |track_id|
-				if !track_id.empty?
-					@new_part = Part.create(song_id: @song_id, track_id: track_id)					
-					@old_part = Part.where(song_id: @old_song_id, track_id: track_id)
-					@roles = Aspect.where(part_id: @old_part.pluck(:id)).pluck(:role_id)
-					@roles.each do |role|
-						@new_part.aspects.create(role_id: role)
-					end
-				end	
+			if @new_song
+				@branch[:id].each do |track_id|
+					if !track_id.empty?
+						@old_part = Part.where(song_id: @old_song_id, track_id: track_id).first
+						@new_part = Part.create(song_id: @song_id, track_id: track_id, user_id: @old_part.user_id)					
+						@roles = Aspect.where(part_id: @old_part.id).pluck(:role_id)
+						@roles.each do |role|
+							@new_part.aspects.create(role_id: role)
+						end
+					end	
+				end
 			end
-			flash[:success] = "Saved"
+			
 		end
+		flash[:success] = "Saved"
 		# render 'shared/track_upload_form'
       	redirect_to(root_url)	
   	end

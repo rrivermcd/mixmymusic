@@ -37,18 +37,18 @@
         <div id='song_stream' class='tab-pane active'>
             <div id='song_list'>
               <div class="pagination">
-                <div class="page_info">
+<!--                 <div class="page_info">
                  <%= page_entries_info @songs %>
-                </div>
+                </div> -->
                  <%= will_paginate @songs, class: 'pager'  %>
               </div>    
               <ul class='list-group '>
                 <%= render 'songs/song_list' %>
               </ul>
               <div class="pagination">
-                <div class="page_info">
+<!--                 <div class="page_info">
                   <%= page_entries_info @songs %>
-                </div>
+                </div> -->
                 <%= will_paginate @songs, class: 'pager'  %>
               </div>           
             </div>

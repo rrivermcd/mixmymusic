@@ -4,7 +4,7 @@ class MixMyMusicController < ApplicationController
     if signed_in?
       @micropost  = current_user.microposts.build
       @feed_items = current_user.feed.paginate(page: params[:page])
-      @songs =      Song.paginate(page: params[:page], per_page: 10).includes(:users)
+      @songs      = Song.order(created_at: :desc).paginate(page: params[:page], per_page: 10).includes(:users)
     end
   end
 
