@@ -10,27 +10,37 @@ class TracksController < ApplicationController
 		@track = current_user.tracks.build(track_params)
 		@track.name = sanitize_filename(@track.track_url)
 		@song_id = song_params
+		@old_song_id = @song_id
 		@roles = role_params
-		@new_song = new_song(@song_id, @roles)
+		@branch = branch_params
+		@new_song = new_song(@song_id, @roles, @branch)
 		Track.transaction do
 			@track.save
-
-	      	if @song_id.blank? or @new_song
+			if @song_id.blank? or @new_song
 				@song = Song.create(:name => @track.name)
 				@song_id = @song.id	 
   			end      		
-      			@part = @track.parts.create(:song_id => @song_id, :user_id => current_user.id)
-      			@roles[:id].each do |role|
-      				if !role.blank?
-   						@part.aspects.create(:role_id => role)
-   					end
-   				end
+  			@part = @track.parts.create(:song_id => @song_id, :user_id => current_user.id)
+  			@roles[:id].each do |role|
+  				if !role.blank?
+						@part.aspects.create(:role_id => role)
+					end
+				end
+			@branch[:id].each do |track_id|
+				if !track_id.empty?
+					@new_part = Part.create(song_id: @song_id, track_id: track_id)					
+					@old_part = Part.where(song_id: @old_song_id, track_id: track_id)
+					@roles = Aspect.where(part_id: @old_part.pluck(:id)).pluck(:role_id)
+					@roles.each do |role|
+						@new_part.aspects.create(role_id: role)
+					end
+				end	
+			end
+			flash[:success] = "Saved"
 		end
-      	flash[:success] = "Saved"
 		# render 'shared/track_upload_form'
       	redirect_to(root_url)	
   	end
-
 
 	private
 
@@ -47,17 +57,21 @@ class TracksController < ApplicationController
 		params[:role]
 	end
 
+	def branch_params
+		params[:branch]
+	end
+
 	def sanitize_filename(file_name)
       just_filename = File.basename(file_name, '.*')
       # just_filename.sub(/[^\w\.\-]/,'_')
     end
 
-	def new_song(song_id, roles)
+	def new_song(song_id, roles, branch)
 	new_song = false
 	parts = Part.where(song_id: song_id)
 		parts.each do |part|
 			role_ids = part.roles.pluck(:id).collect{|i| i.to_s}
-			if !(roles[:id] & role_ids).empty? and !(roles_for_new_song & role_ids).empty?
+			if (!(roles[:id] & role_ids).empty? and !(roles_for_new_song & role_ids).empty?) or branch[:id].length > 1
 				new_song = true
 			end
 		end

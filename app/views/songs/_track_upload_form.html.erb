@@ -12,7 +12,7 @@
   <% if defined? song %>
     <div style = 'padding-top: 10px; padding-bottom: 10px;' class = 'btn-group btn-group-justified'>
       <div class = 'btn-group'>
-        <button type = 'button' class='track_controls btn btn-info btn-xs' data-toggle='collapse' 
+        <button type = 'button' class='track_controls btn btn-info ' data-toggle='collapse' 
           data-target= '#track_upload_for_<%= song.id %>'>
           <strong>Branch This Song!</strong> 
         </button>
@@ -21,18 +21,20 @@
     <div id='track_upload_for_<%= song.id%>' class='collapse'>
       <p>Which tracks do you want to <i>include</i> in your branch?</p>
   		<%= hidden_field_tag 'song_id', song.id%>
-      <%song.tracks.each do |track|%>
-        <div class = 'checkbox'>
-          <label >        
-            <input type="checkbox" name="track_<%=track.id%>" value= '<%=track.id%>'> 
-            <%=track.name%>   
-          </label>      
-        </div>
-      <% end %>
-    </div>    
+        <%= collection_check_boxes(:branch, :id, song.tracks, :id, :name, include_hidden: false) do |b| %> 
+          <div class='row list-group-item'> 
+            <div class='col-xs-8'>    
+            <%= b.label(class: 'check_box') %>
+            </div>
+            <div class='col-xs-4'>
+            <%= b.check_box(class: 'check_box') %>
+          </div>
+          </div>
+        <% end %>
+    </div>
   <% end %>
 
-  <div class="actions">
+  <div class="actions" style='padding-top: 5px'>
     <%= f.submit class: 'btn btn-default btn-sm' %>
   </div>
 <% end %>
