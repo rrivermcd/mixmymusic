@@ -21,7 +21,8 @@
     <div id='track_upload_for_<%= song.id%>' class='collapse'>
       <p>Which tracks do you want to <i>include</i> in your branch?</p>
   		<%= hidden_field_tag 'song_id', song.id%>
-        <%= collection_check_boxes(:branch, :id, song.tracks, :id, :name, include_hidden: false) do |b| %> 
+        <%= options_from_collection_for_select(song.tracks, :id, :name) %>
+        <%= collection_select(:branch, :id, song.tracks, :id, :name, {}, multiple: true, include_hidden: false) do |b| %> 
           <div class='row list-group-item'> 
             <div class='col-xs-8'>    
             <%= b.label(class: 'check_box') %>
