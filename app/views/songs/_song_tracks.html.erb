@@ -1,6 +1,16 @@
 <% song.tracks.each do |track| %>
-	<%if first_by_role(track, song)%>
-		<li class = 'url list-group' data-track = '<%=track.id%>' data-load = '<%=is_audio(track.track_url)%>' data-url = <%= @bucket.objects[track.track_url].url_for(:read)%>>
+	<%if first_by_role(track, song)%>	
+		<% if !@alternatives.empty? %>
+      		<div class='list-group-item'>
+      			<button type = button class = 'btn btn-info btn-xs' data-toggle='collapse' data-target='#sister_for_<%=track.id%>'> 
+      				Alternatives:
+		      		<span class="badge" >
+		      			 <%=@alternatives.length%>
+		      		</span>
+      			</button>
+      		</div>
+      	<% end %> 
+		<li class = 'url' data-track = '<%=track.id%>' data-load = '<%=is_audio(track.track_url)%>' data-url = <%= @bucket.objects[track.track_url].url_for(:read)%>>
 			<div class= 'list-group-item' >
 				<% if is_audio(track.track_url) %> 	      	
 					<button type = 'button' class='mute_track btn btn-default btn-xs' data-track = '<%=track.id%>' >
@@ -15,24 +25,18 @@
 					<button type = button class='btn btn-default btn-xs'><a href = <%= @bucket.objects[track.track_url].url_for(:read) %> target = "_blank"> Open</a></button>			
 				<% end %>
 				<%= track.name %> 
-				<% if @alternatives.length > 0 %>
-		      		<span class='pull-right'>
-		      			<button type = button class = 'btn btn-info btn-xs' data-toggle='collapse' data-target='#sister_for_<%=track.id%>'> 
-		      				Alternatives:
-				      		<span class="badge" >
-				      			 <%=@alternatives.length%>
-				      		</span>
-		      			</button>
-		      		</span>
-		      	<% end %> 
 				<div>
 			 		<p> Roles: <%= pluck_role_as_string(track.id, song.id)%> </p>
-					<span class = 'user_avatars'>	
-						<%= link_to gravatar_for(track.user, size: 30 ), track.user%>
-					</span>
-				  	<span class="timestamp">
-			    		Posted <%= time_ago_in_words(track.created_at) %> ago.
-					</span>
+			 		<div class='media'>
+						<div class = 'pull-left'>	
+							<%= link_to gravatar_for(track.user, size: 50 ), track.user%>
+						</div>
+						<div class='media-body'>
+						  	<span class="timestamp media-heading">
+					    		Posted <%= time_ago_in_words(track.created_at) %> ago.
+							</span>
+						</div>
+					</div>
 					<div id='track_control_toggle_<%= track.id%>' class='collapse' style='width:80%; padding: 10px 0px 0px 20px; clear:both;'>
 						Volume: <span class="track_gain_label" id="gain_label_for_track_<%=track.id%>">1.00</span> 
 						<input class="track_gain" id="gain_for_track_<%=track.id%>" data-node = '' data-track = '<%=track.id%>' max="10" min="0" step="0.01" type="range" value="3.16" >
@@ -42,10 +46,13 @@
 					</div>
 				</div>
 			</div>
-			<div id='sister_for_<%=track.id%>' class='collapse'>
-				<% if !@alternatives.empty? %>
-				    <% @alternatives.each do |alternate| %>	
-				    <div class='list-group-item'>	  	
+		</li>
+	<%end%>		
+		<% if !@alternatives.empty? %>
+		<div id='sister_for_<%=track.id%>' class='collapse'>
+		    <% @alternatives.each do |alternate| %>	 					    
+				<div class='list-group-item'>	  	
+					<li class = 'url' data-track = '<%=alternate.id%>' data-load = '<%=is_audio(alternate.track_url)%>' data-url = <%= @bucket.objects[alternate.track_url].url_for(:read)%>>
 			    		<% if is_audio(alternate.track_url) %> 	      	
 							<button type = 'button' class='mute_track btn btn-default btn-xs' data-track = '<%=alternate.id%>' >
 								<span style='color:red' class="glyphicon glyphicon-ban-circle"></span>
@@ -58,26 +65,27 @@
 							<button type = button class='btn btn-default btn-xs'><a href = <%= @bucket.objects[alternate.track_url].url_for(:read) %> target = "_blank"> Open</a></button>			
 						<% end %>
 						<%= alternate.name %>
-
-				 		<p> Roles: <%= pluck_role_as_string(alternate.id, song.id)%> </p>
-						<span class = 'user_avatars'>	
-							<%= link_to gravatar_for(alternate.user, size: 30 ), alternate.user%>
-						</span>
-					  	<span class="timestamp">
-				    		Posted <%= time_ago_in_words(alternate.created_at) %> ago.
-						</span>
-						<div id='track_control_toggle_<%= alternate.id%>' class='collapse' style='width:80%; padding: 10px 0px 0px 20px; clear:both;'>
-							Volume: <span class="track_gain_label" id="gain_label_for_track_<%=alternate.id%>">1.00</span> 
-							<input class="track_gain" id="gain_for_track_<%=alternate.id%>" data-node = '' data-track = '<%=alternate.id%>' max="10" min="0" step="0.01" type="range" value="3.16" >
-							
-							Pan: <span class="track_pan_label" id="panner_label_for_track_<%=alternate.id%>">0.00</span>
-							<input class="track_pan" id="panner_for_track_<%=alternate.id%>" type="range" max="1.57" min="-1.57" step=".01" value="0"> 
+						<div>
+					 		<p> Roles: <%= pluck_role_as_string(alternate.id, song.id)%> </p>
+							<span class = 'user_avatars'>	
+								<%= link_to gravatar_for(alternate.user, size: 50 ), alternate.user%>
+							</span>
+						  	<span class="timestamp">
+					    		Posted <%= time_ago_in_words(alternate.created_at) %> ago.
+							</span>
+							<div id='track_control_toggle_<%= alternate.id%>' class='collapse' style='width:80%; padding: 10px 0px 0px 20px; clear:both;'>
+								Volume: <span class="track_gain_label" id="gain_label_for_track_<%=alternate.id%>">1.00</span> 
+								<input class="track_gain" id="gain_for_track_<%=alternate.id%>" data-node = '' data-track = '<%=alternate.id%>' max="10" min="0" step="0.01" type="range" value="3.16" >
+								
+								Pan: <span class="track_pan_label" id="panner_label_for_track_<%=alternate.id%>">0.00</span>
+								<input class="track_pan" id="panner_for_track_<%=alternate.id%>" type="range" max="1.57" min="-1.57" step=".01" value="0"> 
+							</div>
 						</div>
-					</end>
-		    		<%end%>
-				<%end%>
-			</div>
-		</li>
-	<%end%>
+					</li>
+				</div>			
+			<%end%>
+		</div>
+	<%end%>	 
+
 <% end %>
 

@@ -8,7 +8,7 @@
 		</button>
 	</div>
 </div>
-<div class= 'btn-toolbar' style='padding-top: 5px;'>
+<div class= 'btn-toolbar' style='padding-top: 5px; padding-bottom: 5px;'>
 	<div name = 'track_expander' class = 'btn-group btn-group-sm'>
 		<button type="button" class='btn btn-default' data-toggle='collapse' data-target= '#tracks_toggle_<%= song.id %>'>
 			 <%= pluralize(song.tracks.count, "Track") %> 

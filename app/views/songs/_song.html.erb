@@ -1,4 +1,4 @@
-<div >
+<div class='list-group'>
 	<li id='song_<%=song.id%>' class='song list-group-item' style='background-color: snow;' >
 	  	<big>
 			<strong>
@@ -24,7 +24,7 @@
 		<div style='padding-top: 5px;' id='meet_the_band_for_<%=song.id%>' class='collapse'>
 			<% song.users.each_with_index do |user| %>
 				<span class = 'user_avatars'>	
-				<%= link_to gravatar_for(user, size: 36 ), user%>
+				<%= link_to gravatar_for(user, size: 50 ), user%>
 				</span>
 			<%end%>
 		</div>				
@@ -34,7 +34,7 @@
 		</div>
 		<div id='tracks_toggle_<%= song.id%>' class='collapse'>
 			<div id = 'song_details'>
-				<ul class='js-track-list playlist list-group microposts '>	
+				<ul class='js-track-list playlist'>	
 					<%= render partial: 'songs/song_tracks', locals: {song: song}  %>
 				</ul>
 			</div>
