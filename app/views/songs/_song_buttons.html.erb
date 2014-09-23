@@ -1,5 +1,5 @@
 <div class= 'btn-toolbar' style='padding-top: 5px;'>
-	<div name = 'song_control' class = 'btn-group btn-group-sm'>
+	<div name = 'song_control' class = 'btn-group '>
 		<button type = 'button' class='play btn btn-default' data-song = '<%=song.id%>'>
 			<span class="glyphicon glyphicon-play"></span>
 		</button>
@@ -8,8 +8,8 @@
 		</button>
 	</div>
 </div>
-<div class= 'btn-toolbar' style='padding-top: 5px; padding-bottom: 5px;'>
-	<div name = 'track_expander' class = 'btn-group btn-group-sm'>
+<div class= 'btn-toolbar' style='padding-top: 5px;'>
+	<div name = 'track_expander' class = 'btn-group '>
 		<button type="button" class='btn btn-default' data-toggle='collapse' data-target= '#tracks_toggle_<%= song.id %>'>
 			 <%= pluralize(song.tracks.count, "Track") %> 
 			 <span  class='glyphicon glyphicon-chevron-down'></span>
@@ -18,7 +18,7 @@
 			<span class='glyphicon glyphicon-cloud-upload'></span> 					
 		</button>
 	</div>
-	<div name = 'song_posts_expander' class = 'btn-group btn-group-sm'>	
+	<div name = 'song_posts_expander' class = 'btn-group'>	
 			<% if song.microposts.count > 0%>
 				<button type='button' class='btn btn-default' data-toggle='collapse' data-target='#song_posts_toggle_<%=song.id%>'>
 						<!-- <%= pluralize(song.microposts.count, "Shout") %>  -->

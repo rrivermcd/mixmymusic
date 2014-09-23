@@ -15,7 +15,7 @@
 		var song = document.getElementById(song_id);
       	var tracks = song.querySelector('.js-track-list');
       	var list_length = tracks.children.length;
-      	var track_ids = [];
+      	trackIds = [];
       	for (var i = 0; i < list_length; i++) 
       	{
 	  		var child = tracks.children[i];
