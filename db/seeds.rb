@@ -15,6 +15,7 @@
 # Role.create(role: 'Solo')
 # Role.create(role: 'Percussion')
 # Role.create(role: 'Pad')
-User.create(name: "David McDermott", email: "demcd@att.net", password: "DMcDermott" username: "Dave" )
-User.create(name: "Mark McDermott", email: "msmcdmt@yahoo.com", password: "MMcDermott" username: "Mark" )
-User.create(name: "Dan McDermott", email: "dm.clqm@gmail.com", password: "dMcDermott" username: "Dan" )
+User.where(username: "Dave").destroy
+User.where(username: "Mark").destroy
+User.where(username: "Dan").destroy
+
