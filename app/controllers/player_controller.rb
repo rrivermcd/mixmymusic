@@ -5,3 +5,4 @@ class Player < ApplicationController
 		@bucket = s3.buckets['mixmymusic'] 
 		render 'shared/player'
 	end
+end
