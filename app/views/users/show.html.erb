@@ -35,8 +35,8 @@
         <ul class='playlist js-track-list'>
           <%= render @tracks%>
         </ul>
-<!--       <%= render 'shared/player' %>
- -->    </section>
+        <%= render 'shared/player' %> -->
+     </section>
     <% if @user.microposts.any? %>
       <section id = 'user_shouts'>  
         <h4>Shouts (<%= @user.microposts.count %>)</h4>
