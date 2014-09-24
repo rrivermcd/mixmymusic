@@ -25,12 +25,12 @@
 	  				<span class="timestamp media-body">
 			    		Posted <%= time_ago_in_words(track.created_at) %> ago.
 					</span></p>
-					<% if ! @alternatives.empty? %>
-
+					<% if !@alternatives.nil? %>
+						<% if !@alternatives.empty?%>
 							<button type = 'button' class='btn  btn-xs' data-toggle='collapse' data-target='#sister_for_<%=track.id%>'> 
 								Alternatives: <span class='badge'><%=@alternatives.length%></span>
 							</button>
-
+						<% end %>
 					<% end %>
 				  	
 				</div>
@@ -43,6 +43,7 @@
 				</div>		
 			</li>
 		<%end%>	
+		<% if !@alternatives.nil? %>
 		<% if !@alternatives.empty? %>
 		    <% @alternatives.each do |alternate| %>	 					    
 				<li style= 'background-color: white; border-style:solid; border-width: 1px; border-color: #ddd; border-radius: 4px; padding: 10px 15px 10px 15px;' id='sister_for_<%=track.id%>' class = 'url collapse ' data-track = '<%=alternate.id%>' data-load = 'false' data-url = <%= @bucket.objects[alternate.track_url].url_for(:read)%>>
@@ -77,6 +78,7 @@
 					</div>
 				</li>
 			<%end%>
+		<%end%>
 		<%end%>	 
 	<% end %>
 </ul>
