@@ -1,4 +1,4 @@
-class player < ApplicationController
+class Player < ApplicationController
 
 	def show
 		# @s3 = AWS::S3.new
