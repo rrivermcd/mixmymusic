@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :tracks
   has_many :songs, through: :parts
   has_many :parts
+  has_many :gears
 
 # microposts
   has_many :microposts, dependent: :destroy

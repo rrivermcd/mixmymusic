@@ -6,7 +6,8 @@ module TracksHelper
 	end
 	def get_s3
 		s3 = AWS::S3.new
-		@bucket = s3.buckets['mixmymusic']
+		@bucket = s3.buckets[ENV["S3_BUCKET"]]
+		# @bucket = s3.buckets['mixmymusic']
 	end
 
 	def first_by_role(track, song)
