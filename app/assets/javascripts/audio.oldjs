@@ -8,7 +8,7 @@
 
 // functions and objects
 
-	// late loading of tracks to minimize calls to Amazon
+	// late loading of tracks to minimize calls to Amazon S3
 	function loadTracks(song_id){
   		url = [];
   		var song_id = 'song_' + song_id;
