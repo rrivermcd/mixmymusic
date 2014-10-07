@@ -74,7 +74,7 @@ class TracksController < ApplicationController
 	parts = Part.where(song_id: song_id)
 		parts.each do |part|
 			role_ids = part.roles.pluck(:id).collect{|i| i.to_s}
-			if (!(roles[:id] & role_ids).empty? and !(roles_for_new_song & role_ids).empty?) or branch[:id].length > 1
+			if (!(roles_for_new_song & role_ids).empty?) or branch[:id].length > 1 #!(roles[:id] & role_ids).empty? and 
 				new_song = true
 			end
 		end

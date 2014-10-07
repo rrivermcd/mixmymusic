@@ -1,5 +1,6 @@
 <div class='js-track-list playlist list-group'>	
 	<% song.tracks.each do |track| %>
+		<div class='list-group-item'>
 			<% if is_audio(track.track_url) %> 	      	
 		 		<audio class='player' id = 'audio_<%=track.id%>' src = '<%= @bucket.objects[track.track_url].url_for(:read)%>' preload='none'> </audio>					
 				<button type = 'button' class='mute_track btn btn-default ' data-track = '<%=track.id%>' >
@@ -31,6 +32,7 @@
 				
 				Pan: <span class="track_pan_label" id="panner_label_for_track_<%=track.id%>">0.00</span>
 				<input class="track_pan" id="panner_for_track_<%=track.id%>" type="range" max="1.57" min="-1.57" step=".01" value="0"> 
-			</div>		
+			</div>
+		</div>		
 	<% end %>
 </div>
