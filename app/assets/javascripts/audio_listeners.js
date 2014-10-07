@@ -60,7 +60,25 @@ function loadListeners(element_class)
 			}
 		}
 
-			//Pan Listener
-
+		if (element_class =='mute_track')
+		{			
+		 	for (var i=0; i < element_list.length; i++) 
+		    {
+		    	//add click listener
+		    	element_list[i].addEventListener("click", function(e)
+		      	{ 
+					var glyph_color = e.target.style.color;
+					var track_id = "audio_" + e.target.parentNode.dataset.track;
+					var audio = document.getElementById(track_id);					
+					if (glyph_color == '') {
+						e.target.style.color = 'red';
+						audio.muted = true;
+					} else {
+						e.target.style.color = '';
+						audio.muted = false;
+					}
+				});
+			}
+		}
 	};	
 

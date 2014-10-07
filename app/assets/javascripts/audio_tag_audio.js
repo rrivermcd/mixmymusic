@@ -23,7 +23,7 @@
 
 
 			loadPannerListeners(sources[i], panners[i]);
-			loadGainListeners(sources[i],gains[i]);
+			loadGainListeners(sources[i], gains[i]);
 
 	    	tracks[i].addEventListener("playing", function()
 	       	{
@@ -83,7 +83,7 @@
 	}
 
 		//Gain Listener
-		function loadGainListeners(source, gainer)
+		function loadGainListeners(source, gainNode)
 	{
 		var id = source.mediaElement.id.replace( /^\D+/g, '');;
 		track_gain= document.getElementById('gain_for_track_' + id);
@@ -93,10 +93,10 @@
 			var lblGain = String(gain.toFixed(2));
 			var lblValue = document.getElementById('gain_label_for_track_'+ id)
 			lblValue.innerHTML = lblGain;
-			gainer.gain.value = gain; 
+			gainNode.gain.value = gain; 
 		}); 
 	}	
-
+	
 	function exponentialVolume(gain, max){
 		var volume = gain;
 		var maximum = max;
