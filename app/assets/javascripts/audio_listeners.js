@@ -59,7 +59,7 @@ function loadListeners(element_class)
 				
 			}
 		}
-
+		//add mute listener
 		if (element_class =='mute_track')
 		{			
 		 	for (var i=0; i < element_list.length; i++) 
