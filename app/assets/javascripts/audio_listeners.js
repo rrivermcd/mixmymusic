@@ -70,7 +70,8 @@ function loadListeners(element_class)
 					var glyph_color = e.target.style.color;
 					var track_id = "audio_" + e.target.parentNode.dataset.track;
 					var audio = document.getElementById(track_id);					
-					if (glyph_color == '') {
+					if (glyph_color == '') 
+					{
 						e.target.style.color = 'red';
 						audio.muted = true;
 					} else {
