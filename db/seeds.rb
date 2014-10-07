@@ -18,6 +18,4 @@
 #User.where(username: "Dave").destroy_all
 #User.where(username: "Mark").destroy_all
 #User.where(username: "Dan").destroy_all
-User.create(username: "Dave", email: "demcd@att.net", password: "dave6932")
-User.create(username: "Mark", email: "msmcdmt@yahoo.com", password: "mark7655")
-User.create(username: "Dan", email: "dm.clqm@gmail.com", password: 'dan9138')
+
