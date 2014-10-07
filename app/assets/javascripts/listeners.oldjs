@@ -10,9 +10,12 @@
 		    	//add click listener
 		    	element_list[i].addEventListener("click", function(e)
 		      	{ 
-		      		// e.target.disabled = true;
+		      		// e.target.disabled = true;	
+
 		      		var song_id = e.currentTarget.dataset.song;
 		      		loadTracks(song_id);
+
+
 					// // setupSource();
 					// for (i=0; i< source.length; i++)
 					// { 

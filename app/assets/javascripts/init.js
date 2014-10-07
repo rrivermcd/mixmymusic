@@ -1,6 +1,12 @@
 // set up javascript
 var ready;
-var add_tracks = []
+//establish audio context
+AudioContext = window.AudioContext || window.webkitAudioContext;
+context = new AudioContext();
+	    
+//establish times
+startTime = context.currentTime;
+stopTime = context.currentTime;
 ready = function() 
 {
 
@@ -10,8 +16,8 @@ ready = function()
 
 	loadListeners('play');
 	loadListeners('stop');
-	loadListeners('mute_track');
-
+	// loadListeners('mute_track');
+	loadListeners('player');
 }
 
 //load for document and for new page - Rails way :-\
