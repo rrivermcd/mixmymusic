@@ -67,15 +67,18 @@ function loadListeners(element_class)
 		    	//add click listener
 		    	element_list[i].addEventListener("click", function(e)
 		      	{ 
+					var glyph_color = e.target.style.color;
 					var track_id = "audio_" + e.target.parentNode.dataset.track;
 					var audio = document.getElementById(track_id);					
-
-					if (audio.muted)
+					if (glyph_color == '') 
 					{
+						e.target.style.color = 'red';
+						audio.muted = true;
+					} else 
+					{
+						e.target.style.color = '';
 						audio.muted = false;
 					}
-					else
-						{audio.muted =true;}
 				});
 			}
 		}
