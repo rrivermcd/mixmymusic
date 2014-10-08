@@ -1,7 +1,6 @@
 class Track < ActiveRecord::Base
 	belongs_to :user
-	has_many :parts
-	has_many :parts
+	has_many :parts, :dependent => :destroy
 	has_many :songs, through: :parts
 	has_many :microposts
 

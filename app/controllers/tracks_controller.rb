@@ -1,9 +1,26 @@
 class TracksController < ApplicationController
+	before_action :correct_user, only: :destroy
 	
 	def index
 	end
 	
 	def new
+	end
+
+	def destroy	
+		s3 = AWS::S3.new
+		bucket = s3.buckets[ENV['S3_BUCKET']]
+		bucket.objects.delete(@deletetrack.track_url)
+		songs_to_check = Part.where(track_id: @deletetrack).pluck(:song_id)		
+		@deletetrack.destroy	
+		songs_to_check.each do |song_id|
+			song = Song.find_by(id: song_id)
+			if song.parts.empty?
+				song.destroy
+			end
+		end
+	
+		redirect_to root_url
 	end
 		
 	def create
@@ -52,6 +69,11 @@ class TracksController < ApplicationController
 
 	end
 
+	def correct_user
+		@deletetrack = current_user.tracks.find_by(id: params[:id])		
+		redirect_to root_url if @deletetrack.nil?
+	end
+	
 	def song_params
 		params[:song_id]
 	end
