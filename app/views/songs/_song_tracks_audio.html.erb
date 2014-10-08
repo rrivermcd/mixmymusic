@@ -14,11 +14,13 @@
 				<button type = button class='btn btn-default '><a href = <%= @bucket.objects[track.track_url].url_for(:read) %> target = "_blank"> Open</a></button>			
 			<% end %>
 			<big><%= track.name %></big>
+			<span class='pull-right'>
 			<% if current_user?(track.user) %>
     			<%= link_to "delete", track, method: :delete,
-                                     data: { confirm: "You sure?"},
+                                     data: { confirm: "Do you really want to delete #{track.name}?"},
                                      title: track.name %>
-            <% end %>                        	
+            <% end %>    
+            </span>                    	
 	 		<div class='media'>
 				<div class = 'pull-left'>	
 					<%= link_to gravatar_for(track.user, size: 50 ), track.user%>
