@@ -31,50 +31,55 @@
 
 
 		}
-
-	  //   	tracks[i].addEventListener("playing", function()
-	  //      	{
-	  //      	    if (startTime != 0) 
-	  //      	    {   
-			// 		nowTime = context.currentTime - startTime;  
-			// 		if (this.currentTime.toFixed(3) != nowTime.toFixed(3)) 
-			// 	    {
-			// 	       	this.currentTime = nowTime;
-			// 	    }
-			// 	}
-			// });
-
-   //     	    tracks[i].addEventListener("timeupdate", function()
-   //     	    {
-   //     	    	if (startTime != 0)
-   //     	    	{      
-			// 	   nowTime = context.currentTime - startTime;  
-			// 	   if (this.currentTime.toFixed(3) != nowTime.toFixed(3)) 
-			//        {
-			//        	this.currentTime = nowTime;
-			//        }
-		 //    	}
-	  //   	});
-	   //  	this.sources[i].mediaElement.addEventListener("canplay", function()
-	   //  	{  
-		
-    // 			this.ready = this.ready + 1;
-    // 			if (this.ready == this.tracks.length)
-				// {
-				// 	startTracks(this.sources); 
-				// }
-	   //  	});
+	}
+    function playingListeners(song)
+   	{ 
+   		for (i = 0; i< song.sources.length; i++)
+   		{
+	   		song.sources[i].mediaElement.addEventListener("playing", function()
+	   		{
+		   		if (song.startTime !=0)
+		   		{
+					var timeNow = context.currentTime - song.startTime;
+					if (context.currentTime.toFixed(3) != timenow.toFixed(3)) 
+				    {
+				       	song.sources[i].mediaElement.currentTime = timeNow;
+				    }
+				}
+			});
 		}
+	}
+
+    function timeUpdateListeners(song)
+    {
+		for (i = 0; i< song.sources.length; i++)
+   		{
+	   		song.sources[i].mediaElement.addEventListener("timeupdate", function()
+	   		{
+		   		if (song.startTime !=0)
+		   		{
+					var timeNow = context.currentTime - song.startTime;
+					if (context.currentTime.toFixed(3) != timenow.toFixed(3)) 
+				    {
+				       	song.sources[i].mediaElement.currentTime = timeNow;
+				    }
+				}
+			});
+		}
+	}
+
+
 
 	function canPlayListeners(song)
 	{
 		for (i = 0; i<song.sources.length; i++)
-		{
-	    	song.sources[i].mediaElement.addEventListener("canplay", function()
+		{	
+			song.sources[i].mediaElement.addEventListener("canplay", function()
 			{  
     			song.ready = song.ready + 1;
     			if (song.ready === song.sources.length)
     			{
+
     				startTracks(song);
 				}
     		});
