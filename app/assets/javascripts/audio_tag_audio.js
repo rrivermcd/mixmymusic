@@ -17,7 +17,8 @@
   		for (var i = 0; i < this.tracks.length; i++) 
       	{
 			this.tracks[i].preload='auto';
-			this.sources[i] = context.createMediaElementSource(this.tracks[i]);
+			this.tracks[i].load();
+			this.sources[i] = context.createMediaElementSource(this.tracks[i]);			
 			this.panners[i] = context.createPanner();
 			this.gains[i] = context.createGain();
 			
@@ -36,16 +37,14 @@
    	{ 
    		for (i = 0; i< song.sources.length; i++)
    		{
-	   		song.sources[i].mediaElement.addEventListener("playing", function()
+
+	   		song.sources[i].mediaElement.addEventListener("play", function()
 	   		{
-		   		if (song.startTime !=0)
-		   		{
-					var timeNow = context.currentTime - song.startTime;
-					if (context.currentTime.toFixed(3) != timeNow.toFixed(3)) 
-				    {
-				       	song.sources[i].mediaElement.currentTime = timeNow;
-				    }
-				}
+				var timeNow = context.currentTime - song.startTime;
+				if (context.currentTime.toFixed(3) != timeNow.toFixed(3)) 
+			    {
+			       	this.currentTime = timeNow;
+			    }
 			});
 		}
 	}
@@ -56,14 +55,11 @@
    		{
 	   		song.sources[i].mediaElement.addEventListener("timeupdate", function()
 	   		{
-		   		if (song.startTime !=0)
-		   		{
-					var timeNow = context.currentTime - song.startTime;
-					if (context.currentTime.toFixed(3) != timeNow.toFixed(3)) 
-				    {
-				       	song.sources[i].mediaElement.currentTime = timeNow;
-				    }
-				}
+				var timeNow = context.currentTime - song.startTime;
+				if (context.currentTime.toFixed(3) != timeNow.toFixed(3)) 
+			    {
+			       	this.currentTime = timeNow;
+			    }
 			});
 		}
 	}
@@ -74,7 +70,9 @@
 	{
 		for (i = 0; i<song.sources.length; i++)
 		{	
-			song.sources[i].mediaElement.addEventListener("canplay", function()
+   			song.sources[i].mediaElement.preload='auto';
+   			song.sources[i].mediaElement.src = song.tracks[i].currentSrc;			
+   			song.sources[i].mediaElement.addEventListener("canplaythrough", function()
 			{  
     			song.ready = song.ready + 1;
     			if (song.ready === song.sources.length)
@@ -90,7 +88,8 @@
 		song.startTime = song.stopTime;
 		for (var i=0; i < song.sources.length; i++)
 			{
-				song.sources[i].mediaElement.play(song.startTime);
+				// song.sources[i].mediaElement.currentTime = song.startTime;
+				song.sources[i].mediaElement.play();
 			}
 	}				
 	    	

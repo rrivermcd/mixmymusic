@@ -21,7 +21,7 @@ function loadListeners(element_class)
 		      			if (wiredSongs[i].song_id === song_id)	
 		      			{	
 		      				songWired = true;			
-							startTracks(wiredSongs[i]);
+							canPlayListeners(wiredSongs[i]);
 							break;
 						}
 					}
@@ -31,11 +31,10 @@ function loadListeners(element_class)
 	      				var elements = song.querySelector('.js-track-list');
 	      				var tracks = elements.querySelectorAll('.player');
 						wiredSongs[wiredSongs.length] = new WireSongs(tracks, song_id);
-						var thisSong = wiredSongs[wiredSongs.length-1];
-						playingListeners(thisSong);
-						timeUpdateListeners(thisSong);						
+						var thisSong = wiredSongs[wiredSongs.length-1];					
 						canPlayListeners(thisSong);
-
+						// playingListeners(thisSong);
+						// timeUpdateListeners(thisSong);	
 					}
 				});
 			}
@@ -67,8 +66,11 @@ function loadListeners(element_class)
 					for (i = 0; i< thisSong.sources.length; i++)
 					{
 						thisSong.sources[i].mediaElement.pause();
+						thisSong.ready = 0;
+						thisSong.sources[i].mediaElement.src='';
+						thisSong.sources[i].mediaElement.removeEventListener("canplaythrough");
 					}
-						thisSong.stopTime = context.currentTime - thisSong.startTime;				
+					thisSong.stopTime = context.currentTime - thisSong.startTime;				
 				});
 				
 			}
