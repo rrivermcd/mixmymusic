@@ -59,7 +59,7 @@
 				if (context.currentTime.toFixed(3) != timeNow.toFixed(3)) 
 			    {
 			       	this.currentTime = timeNow;
-			    }
+			    } 
 			});
 		}
 	}
