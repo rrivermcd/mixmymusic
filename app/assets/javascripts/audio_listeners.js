@@ -1,3 +1,4 @@
+
 function loadListeners(element_class)
 	{
 		var element_list = document.getElementsByClassName(element_class)
@@ -11,27 +12,28 @@ function loadListeners(element_class)
 		    	//add click listener
 		    	element_list[i].addEventListener("click", function(e)
 		      	{ 
-		      		// e.target.disabled = true;	
-
+		      		// e.target.disabled = true;
+		      		var songWired = false;
 		      		var song_id = e.currentTarget.dataset.song;
       		  		var song_id = 'song_' + song_id;
-					var song = document.getElementById(song_id);
-      				var elements = song.querySelector('.js-track-list');
-      				var tracks = elements.querySelectorAll('.player');
-		      		if (startTime == 0)
+		      		for (i = 0; i< wiredSongs.length; i++)
 		      		{
-		      			loadTracks(tracks, elements);
+		      			if (wiredSongs[i].song_id === song_id)	
+		      			{	
+		      				songWired = true;			
+							startTracks(wiredSongs[i]);
+							break;
+						}
 					}
-					else
-					{
-						startTracks(tracks);
+	      			if (!songWired)
+	      			{	
+		      			var song = document.getElementById(song_id);
+	      				var elements = song.querySelector('.js-track-list');
+	      				var tracks = elements.querySelectorAll('.player');
+						wiredSongs[wiredSongs.length] = new WireSongs(tracks, song_id);
+						var thisSong = wiredSongs[wiredSongs.length-1];
+						canPlayListeners(thisSong);
 					}
-
-					// // setupSource();
-					// for (i=0; i< source.length; i++)
-					// { 
-					// 	source[i].start(0);	
-					// }
 				});
 			}
 		}
@@ -44,15 +46,24 @@ function loadListeners(element_class)
 		    	//add click listener
 		    	element_list[i].addEventListener("click", function(e)
 		      	{ 	
+		      		var thisSong = '';
 		      		var song_id = e.currentTarget.dataset.song;		      		
 			 		var song_id = 'song_' + song_id;
-					var song = document.getElementById(song_id);
-			      	var elements = song.querySelector('.js-track-list');
-			      	var tracks = elements.querySelectorAll('.player');	
-			      	stopTime = context.currentTime - startTime;	      		
-					for (i = 0; i< tracks.length; i++)
+			 		for (i=0; i<wiredSongs.length; i++)
+			 		{
+			 			if (wiredSongs[i].song_id === song_id)
+			 			{
+			 				thisSong = wiredSongs[i];
+			 				break;
+			 			}
+			 		}
+					// var song = document.getElementById(song_id);
+			  //     	var elements = song.querySelector('.js-track-list');
+			  //     	var tracks = elements.querySelectorAll('.player');	
+			  //     	stopTime = context.currentTime - startTime;	      		
+					for (i = 0; i< thisSong.sources.length; i++)
 					{
-						tracks[i].pause();
+						thisSong.sources[i].mediaElement.pause();
 					}
 				
 				});

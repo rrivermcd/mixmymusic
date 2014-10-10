@@ -1,73 +1,94 @@
 // functions and objects
-
+	//	var sources = [];
 	// late loading of tracks to minimize calls to Amazon
-	function loadTracks(tracks, elements)
-	{
-		var ready = 0;
-		var sources = [];
-		var panners = [];  
-		var gains = []	
-  		for (var i = 0; i < tracks.length; i++) 
-      	{
- 
-
-			tracks[i].preload='auto';
-			
-			sources[i] = context.createMediaElementSource(tracks[i]);
-			panners[i] = context.createPanner();
-			gains[i] = context.createGain();
-			
-			sources[i].connect(gains[i]);
-			gains[i].connect(panners[i]);
-			panners[i].connect(context.destination);
-
-
-			loadPannerListeners(sources[i], panners[i]);
-			loadGainListeners(sources[i], gains[i]);
-
-	    	tracks[i].addEventListener("playing", function()
-	       	{
-	       	    if (startTime != 0) 
-	       	    {   
-					nowTime = context.currentTime - startTime;  
-					if (this.currentTime.toFixed(3) != nowTime.toFixed(3)) 
-				    {
-				       	this.currentTime = nowTime;
-				    }
-				}
-			});
-
-       	    tracks[i].addEventListener("timeupdate", function()
-       	    {
-       	    	if (startTime != 0)
-       	    	{      
-				   nowTime = context.currentTime - startTime;  
-				   if (this.currentTime.toFixed(3) != nowTime.toFixed(3)) 
-			       {
-			       	this.currentTime = nowTime;
-			       }
-		    	}
-	    	});
-	    	tracks[i].addEventListener("canplay", function()
-	    	{    		
-    			ready = ready + 1;
-    			if (ready == tracks.length)
-				{
-					startTracks(tracks);
-				}
-	    	});
-		}
-	}
-
-	function startTracks(tracks)
+	function WireSongs(tracks, song_id)
 	{	
-		startTime = context.currentTime - stopTime;
-		for (var i=0; i < tracks.length; i++)
+		this.tracks = tracks;
+		this.song_id = song_id;
+
+		this.startTime = 0;
+		this.stopTime = 0;
+		this.ready = 0;
+		
+		this.sources = [];		
+		this.panners = [];  
+		this.gains = []	
+  		
+  		for (var i = 0; i < this.tracks.length; i++) 
+      	{
+			this.tracks[i].preload='auto';
+			this.sources[i] = context.createMediaElementSource(this.tracks[i]);
+			this.panners[i] = context.createPanner();
+			this.gains[i] = context.createGain();
+			
+			this.sources[i].connect(this.gains[i]);
+			this.gains[i].connect(this.panners[i]);
+			this.panners[i].connect(context.destination);
+
+
+			loadPannerListeners(this.sources[i], this.panners[i]);
+			loadGainListeners(this.sources[i], this.gains[i]);
+
+
+		}
+
+	  //   	tracks[i].addEventListener("playing", function()
+	  //      	{
+	  //      	    if (startTime != 0) 
+	  //      	    {   
+			// 		nowTime = context.currentTime - startTime;  
+			// 		if (this.currentTime.toFixed(3) != nowTime.toFixed(3)) 
+			// 	    {
+			// 	       	this.currentTime = nowTime;
+			// 	    }
+			// 	}
+			// });
+
+   //     	    tracks[i].addEventListener("timeupdate", function()
+   //     	    {
+   //     	    	if (startTime != 0)
+   //     	    	{      
+			// 	   nowTime = context.currentTime - startTime;  
+			// 	   if (this.currentTime.toFixed(3) != nowTime.toFixed(3)) 
+			//        {
+			//        	this.currentTime = nowTime;
+			//        }
+		 //    	}
+	  //   	});
+	   //  	this.sources[i].mediaElement.addEventListener("canplay", function()
+	   //  	{  
+		
+    // 			this.ready = this.ready + 1;
+    // 			if (this.ready == this.tracks.length)
+				// {
+				// 	startTracks(this.sources);
+				// }
+	   //  	});
+		}
+
+	function canPlayListeners(song)
+	{
+		for (i = 0; i<song.sources.length; i++)
 		{
-			tracks[i].play();
+	    	song.sources[i].mediaElement.addEventListener("canplay", function()
+			{  
+    			song.ready = song.ready + 1;
+    			if (song.ready === song.sources.length)
+    			{
+    				startTracks(song);
+				}
+    		});
 		}
 	}
 
+	function startTracks(song)
+	{
+		for (var i=0; i < song.sources.length; i++)
+			{
+				song.sources[i].mediaElement.play();
+			}
+	}				
+	    	
 
 	function loadPannerListeners(source, panner)
 	{

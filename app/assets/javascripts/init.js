@@ -2,8 +2,8 @@
 var ready;
 //establish audio context
 AudioContext = window.AudioContext || window.webkitAudioContext;
-context = new AudioContext();
-	    
+context = new AudioContext();  
+wiredSongs = [];
 //establish times
 startTime = context.currentTime;
 stopTime = context.currentTime;
