@@ -32,10 +32,10 @@ function loadListeners(element_class)
 	      				var tracks = elements.querySelectorAll('.player');
 						wiredSongs[wiredSongs.length] = new WireSongs(tracks, song_id);
 						var thisSong = wiredSongs[wiredSongs.length-1];
-						canPlayListeners(thisSong);
-						for(i = 0; i<thisSong.sources.length; i++)
 						playingListeners(thisSong);
-						timeupdateListeners(thisSong);
+						timeUpdateListeners(thisSong);						
+						canPlayListeners(thisSong);
+
 					}
 				});
 			}

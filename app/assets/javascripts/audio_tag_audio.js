@@ -79,7 +79,6 @@
     			song.ready = song.ready + 1;
     			if (song.ready === song.sources.length)
     			{
-
     				startTracks(song);
 				}
     		});
