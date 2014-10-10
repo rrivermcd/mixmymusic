@@ -41,7 +41,7 @@
 		   		if (song.startTime !=0)
 		   		{
 					var timeNow = context.currentTime - song.startTime;
-					if (context.currentTime.toFixed(3) != timenow.toFixed(3)) 
+					if (context.currentTime.toFixed(3) != timeNow.toFixed(3)) 
 				    {
 				       	song.sources[i].mediaElement.currentTime = timeNow;
 				    }
@@ -59,7 +59,7 @@
 		   		if (song.startTime !=0)
 		   		{
 					var timeNow = context.currentTime - song.startTime;
-					if (context.currentTime.toFixed(3) != timenow.toFixed(3)) 
+					if (context.currentTime.toFixed(3) != timeNow.toFixed(3)) 
 				    {
 				       	song.sources[i].mediaElement.currentTime = timeNow;
 				    }
