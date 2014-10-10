@@ -83,9 +83,10 @@
 
 	function startTracks(song)
 	{
+		song.startTime = song.stopTime;
 		for (var i=0; i < song.sources.length; i++)
 			{
-				song.sources[i].mediaElement.play();
+				song.sources[i].mediaElement.play(song.startTime);
 			}
 	}				
 	    	

@@ -65,7 +65,7 @@ function loadListeners(element_class)
 					{
 						thisSong.sources[i].mediaElement.pause();
 					}
-				
+						thisSong.stopTime = context.currentTime - thisSong.startTime;				
 				});
 				
 			}
