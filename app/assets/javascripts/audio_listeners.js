@@ -34,7 +34,6 @@ function loadListeners(element_class)
 									aSong.sources[j].mediaElement.pause();
 									aSong.state = 'paused';
 								}
-
 			      			}
 		      			}
 		      		}
