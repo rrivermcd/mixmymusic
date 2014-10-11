@@ -27,22 +27,14 @@ function loadListeners(element_class)
 		      			}
 		      			else
 		      			{
-			      			switch (aSong.state)
+			      			if (aSong.state == 'playing')
 			      			{
-			      				case 'playing':
-			      				case 'paused':
-				      				aSong.sources[i].mediaElement.removeEventListener("canplaythrough");
+			      				for (i=0; i<aSong.sources.length; i++)
+			      				{
 									aSong.sources[i].mediaElement.pause();
-									aSong.ready = 0;
-									aSong.sources[i].mediaElement.src='';
-									aSong.state = 'stopped';
-				      				break;
-			      				case 'stopped':
-			      					//write code here
-			      					break;
-		      					case 'paused':
-		      						//write code here
-			      					break;
+									aSong.state = 'paused';
+								}
+
 			      			}
 		      			}
 		      		}
