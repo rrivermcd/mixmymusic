@@ -6,7 +6,7 @@
   </div>
   <div style = 'padding-top: 10px;'>
     <label> Define your tracks role(s). </label>      
-    <%= options_from_collection_for_select(Role.all, :id, :role) %>
+    <% options_from_collection_for_select(Role.all, :id, :role) %>
     <%= collection_select(:role, :id, Role.all, :id, :role, {}, multiple: true, include_hidden: false) %>  
   </div>    
   <% if defined? song %>

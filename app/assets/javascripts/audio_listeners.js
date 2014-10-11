@@ -13,19 +13,40 @@ function loadListeners(element_class)
 		    	element_list[i].addEventListener("click", function(e)
 		      	{ 
 		      		// e.target.disabled = true;
-		      		var songWired = false;
-		      		var song_id = e.currentTarget.dataset.song;
+      		  		var thisIsPaused = false;
+      		  		var thisSong = '';		      		
+      		  		var song_id = e.currentTarget.dataset.song;
       		  		var song_id = 'song_' + song_id;
+
 		      		for (i = 0; i< wiredSongs.length; i++)
 		      		{
-		      			if (wiredSongs[i].song_id === song_id)	
+		      			aSong = wiredSongs[i];
+		      			if (aSong.song_id === song_id)	
 		      			{	
-		      				songWired = true;			
-							canPlayListeners(wiredSongs[i]);
-							break;
-						}
-					}
-	      			if (!songWired)
+		      				thisSong = aSong;
+		      			}
+		      			else
+		      			{
+			      			switch (aSong.state)
+			      			{
+			      				case 'playing':
+			      				case 'paused':
+				      				aSong.sources[i].mediaElement.removeEventListener("canplaythrough");
+									aSong.sources[i].mediaElement.pause();
+									aSong.ready = 0;
+									aSong.sources[i].mediaElement.src='';
+									aSong.state = 'stopped';
+				      				break;
+			      				case 'stopped':
+			      					//write code here
+			      					break;
+		      					case 'paused':
+		      						//write code here
+			      					break;
+			      			}
+		      			}
+		      		}
+	      			if (thisSong == '')
 	      			{	
 		      			var song = document.getElementById(song_id);
 	      				var elements = song.querySelector('.js-track-list');
@@ -35,13 +56,23 @@ function loadListeners(element_class)
 						canPlayListeners(thisSong);
 						// playingListeners(thisSong);
 						// timeUpdateListeners(thisSong);	
+					} else if (thisSong.state == 'paused')
+	      			{
+  						startTracks(thisSong);
 					}
+					else 
+					{
+						canPlayListeners(thisSong);
+					}
+
+						
+	      			
 				});
 			}
 		}
 
 				//add stop listener	
-		if (element_class == 'stop')
+		if (element_class == 'stop' || element_class == 'pause')
 		{
 			for (var i=0; i < element_list.length; i++) 
 		    {
@@ -51,6 +82,7 @@ function loadListeners(element_class)
 		      		var thisSong = '';
 		      		var song_id = e.currentTarget.dataset.song;		      		
 			 		var song_id = 'song_' + song_id;
+			 		var whoClicked = e.currentTarget.className;
 			 		for (i=0; i<wiredSongs.length; i++)
 			 		{
 			 			if (wiredSongs[i].song_id === song_id)
@@ -65,11 +97,21 @@ function loadListeners(element_class)
 			  //     	stopTime = context.currentTime - startTime;	      		
 					for (i = 0; i< thisSong.sources.length; i++)
 					{
-						thisSong.sources[i].mediaElement.pause();
-						thisSong.ready = 0;
-						thisSong.sources[i].mediaElement.src='';
 						thisSong.sources[i].mediaElement.removeEventListener("canplaythrough");
+						thisSong.sources[i].mediaElement.pause();
+
+						if (whoClicked.indexOf('stop') >= 0)
+						{
+							thisSong.ready = 0;
+							thisSong.sources[i].mediaElement.src='';
+							thisSong.state = 'stopped';
+						}
+						else
+						{
+							thisSong.state = 'paused';
+						}
 					}
+
 					thisSong.stopTime = context.currentTime - thisSong.startTime;				
 				});
 				

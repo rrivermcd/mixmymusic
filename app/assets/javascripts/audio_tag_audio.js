@@ -6,6 +6,7 @@
 		this.tracks = tracks;
 		this.song_id = song_id;
 
+		this.state = 'wired';
 		this.startTime = 0;
 		this.stopTime = 0;
 		this.ready = 0;
@@ -29,8 +30,6 @@
 
 			loadPannerListeners(this.sources[i], this.panners[i]);
 			loadGainListeners(this.sources[i], this.gains[i]);
-
-
 		}
 	}
     function playingListeners(song)
@@ -86,6 +85,7 @@
 	function startTracks(song)
 	{
 		song.startTime = song.stopTime;
+		song.state = 'playing';
 		for (var i=0; i < song.sources.length; i++)
 			{
 				// song.sources[i].mediaElement.currentTime = song.startTime;

@@ -16,6 +16,7 @@ ready = function()
 
 	loadListeners('play');
 	loadListeners('stop');
+	loadListeners('pause')
 	loadListeners('mute_track');
 	loadListeners('player');
 
