@@ -21,7 +21,7 @@ function loadListeners(element_class)
 		      		for (i = 0; i< wiredSongs.length; i++)
 		      		{
 		      			aSong = wiredSongs[i];
-		      			if (aSong.song_id === song_id)	
+		      			if (aSong.song_id == song_id)	
 		      			{	
 		      				thisSong = aSong;
 		      			}
@@ -29,9 +29,9 @@ function loadListeners(element_class)
 		      			{
 			      			if (aSong.state == 'playing')
 			      			{
-			      				for (i=0; i<aSong.sources.length; i++)
+			      				for (j=0; j<aSong.sources.length; j++)
 			      				{
-									aSong.sources[i].mediaElement.pause();
+									aSong.sources[j].mediaElement.pause();
 									aSong.state = 'paused';
 								}
 
