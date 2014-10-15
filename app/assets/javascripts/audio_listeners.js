@@ -17,7 +17,6 @@ function loadListeners(element_class)
       		  		var thisSong = '';		      		
       		  		var song_id = e.currentTarget.dataset.song;
       		  		var song_id = 'song_' + song_id;
-
 		      		for (i = 0; i< wiredSongs.length; i++)
 		      		{
 		      			aSong = wiredSongs[i];
@@ -36,14 +35,14 @@ function loadListeners(element_class)
 								}
 			      			}
 		      			}
-		      		}
+		      		}	
 	      			if (thisSong == '')
 	      			{	
 		      			var song = document.getElementById(song_id);
 	      				var elements = song.querySelector('.js-track-list');
 	      				var tracks = elements.querySelectorAll('.player');
 						wiredSongs[wiredSongs.length] = new WireSongs(tracks, song_id);
-						var thisSong = wiredSongs[wiredSongs.length-1];					
+						var thisSong = wiredSongs[wiredSongs.length-1];				
 						canPlayListeners(thisSong);
 						// playingListeners(thisSong);
 						// timeUpdateListeners(thisSong);	
@@ -88,7 +87,7 @@ function loadListeners(element_class)
 			  //     	stopTime = context.currentTime - startTime;	      		
 					for (i = 0; i< thisSong.sources.length; i++)
 					{
-						thisSong.sources[i].mediaElement.removeEventListener("canplaythrough");
+						thisSong.sources[i].mediaElement.removeEventListener("durationchange");
 						thisSong.sources[i].mediaElement.pause();
 
 						if (whoClicked.indexOf('stop') >= 0)
@@ -127,6 +126,49 @@ function loadListeners(element_class)
 					{
 						e.target.style.color = '';
 						audio.muted = false;
+					}
+				});
+			}
+		}
+		if (element_class =='solo')
+		{			
+		 	for (var i=0; i < element_list.length; i++) 
+		    {
+		    	//add click listener
+		    	element_list[i].addEventListener("click", function(e)
+		      	{ 
+		      		var thisSong = '';
+					var glyph_color = e.target.style.color;
+					var track_id = "audio_" + e.target.parentNode.dataset.track;	      		
+
+			 		for (i=0; i<wiredSongs.length; i++)
+			 		{
+			 			if (wiredSongs[i].song_id === song_id)
+			 			{
+			 				thisSong = wiredSongs[i];
+			 				break;
+			 			}
+			 		}
+					if (glyph_color == '') 
+					{
+						e.target.style.color = 'green';			 		
+						for (i=0; i<thisSong.sources[i].length; i++)
+						{
+							if (!thisSong.tracks[i].track_id == track_id)
+							{
+								thisSong.sources[i].mediaElement.pause();
+							}
+						}
+					} else 
+					{
+						e.target.style.color = '';
+						for (i=0; i<thisSong.sources[i].length; i++)
+						{
+							if (!thisSong.tracks[i].track_id == track_id)
+							{
+								thisSong.sources[i].mediaElement.play();
+							}
+						}						
 					}
 				});
 			}

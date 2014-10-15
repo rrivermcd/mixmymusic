@@ -6,6 +6,9 @@
 				<button type = 'button' class='mute_track btn btn-default ' data-track = '<%=track.id%>' >
 					<span class="glyphicon glyphicon-ban-circle"></span>
 				</button>
+				<button type = 'button' class='solo btn btn-default ' data-track = '<%=track.id%>' >
+					<span class="glyphicon glyphicon-zoom-in"></span>
+				</button>				
 				<button type = 'button' class='track_controls btn btn-default' data-toggle='collapse' 
 					data-target= '#track_control_toggle_<%= track.id %>'>
 					<span  class='glyphicon glyphicon-random'></span> 

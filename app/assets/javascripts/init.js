@@ -19,10 +19,12 @@ ready = function()
 	loadListeners('pause')
 	loadListeners('mute_track');
 	loadListeners('player');
+	loadListeners('solo');
 
 }
 
 //load for document and for new page - Rails way :-\
 
- $(document).ready(ready)
- $(document).on('page:load', ready)
+ $(document).ready(ready);
+ $(document).on('page:load', ready);
+ // $(document.on('deviceready', ready));
